@@ -7,6 +7,7 @@
 body {
     margin: 0;
     font-family: "Mitr", sans-serif;
+    font-weight: 200;
     height: 100vh;
     width: 100%;
 }
@@ -53,6 +54,51 @@ a.navItem:hover {
     flex-direction: column;
     flex: 0 0 250px;
     margin: 20px;
-    background-color: aquamarine;
     align-items: center;
+}
+
+.table-header {
+    margin: 0;
+    font-size: larger;
+    text-align: center;
+    width: 100%;
+    border-bottom: 3px solid black;
+}
+
+.box {
+    width: 100%;
+    margin: 10px 0px;
+    padding: 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+h1 {
+    font-weight: normal;
+}
+
+.box>h1 {
+    padding: 0px 3px;
+}
+
+.box-title {
+    margin: 3px 0;
+    font-size: larger;
+}
+
+.box-priority-high>h1 {
+    margin: 0;
+    font-size: medium;
+    padding: 0px 10px;
+    background-color: rgb(222, 145, 145);
+    display: inline;
+    color: red;
+    border-radius: 5px;
+    padding-right: auto;
+}
+
+.box-date {
+    margin: 3px 0;
+    font-size: larger;
 }
