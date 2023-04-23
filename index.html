@@ -1,62 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>รายการฝากซื้อ</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Board</title>
     <link rel="stylesheet" href="style.css">
-    </link>
-    <script src="script_item.js" defer></script>
 </head>
 
 <body>
-    <section>
-        <header>
-            <h1 id="app-name">รายการฝากซื้อ Group <span id="group-no"></span> </h1>
-        </header>
-    </section>
-    <section>
-        <header>
-            <h2 class="section-title">รายชื่อผู้มีสิทธิฝากซื้อ</h2><span class="section-subtitle">(สมาชิกในกลุ่ม)</span>
-        </header>
-        <ul id="member-list"> </ul>
-    </section>
-    <section>
-        <header>
-            <h2 class="section-title">รายการฝากซื้อ</h2>
-        </header>
-        <table class="main-table">
-            <thead>
-                <tr>
-                    <th>ของที่ฝากซื้อ</th>
-                    <th>ชื่อผู้ฝากซื้อ</th>
-                    <th>ราคา (บาท)</th>
-                    <th>ดำเนินการ</th>
-                </tr>
-            </thead>
-            <tbody id="main-table-body">
-
-            </tbody>
-            <tfoot>
-                <tr id="newrow-form">
-                    <td><input id="item-to-add" type="text" /></td>
-                    <td>
-                        <select id="name-to-add">
-                        </select>
-                    </td>
-                    <td><input id="price-to-add" type="number" /></td>
-                    <td><button id="add-newrow" onclick=addItem()>เพิ่ม</button></td>
-                </tr>
-            </tfoot>
-        </table>
-    </section>
-    <section class="section-center">
-        <button class="button change-page-button" onclick="window.location.href='login.html'">Go to MyCourseville API
-            Login Page</button>
-    </section>
-    <section class="section-credit">
-        &#169; 2110221 Computer Engineering Essentials (2022/2) &#169;
-    </section>
+    <div class="navBar">
+        <h1 class="navItem"> Group 31 </h1>
+        <a class="navItem" style="margin-left: auto;" href="/login.html"> Log In </a>
+    </div>
+    <div class="main">
+        <h1>📝 ToDo List</h1>
+        <div class="tableWrapper">
+            <div class="tableColumn">
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+            </div>
+            <div class="tableColumn">
+                <h1>Hello</h1>
+            </div>
+            <div class="tableColumn">
+                <h1>Hello</h1>
+            </div>
+            <div class="tableColumn">
+                <h1>Hello</h1>
+            </div>
+            <div class="tableColumn">
+                <h1>Hello</h1>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
