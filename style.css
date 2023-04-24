@@ -2,6 +2,7 @@
 
 :root {
     --pm: #088cdc;
+    --black: #000030;
 }
 
 body {
@@ -12,29 +13,30 @@ body {
     width: 100%;
 }
 
-.navBar {
+.nav {
     display: flex;
     flex-direction: row;
     background-color: var(--pm);
     padding: 10px;
     height: 70px;
     color: white;
-    width: 100vw;
+    width: 100%;
     box-sizing: border-box;
 }
 
-.navItem {
+.nav-item {
     margin: auto 0 auto 0;
     text-align: center;
     font-size: x-large;
+    font-weight: normal;
 }
 
-a.navItem {
+a.nav-item {
     text-decoration: none;
     color: white;
 }
 
-a.navItem:hover {
+a.nav-item:hover {
     text-decoration: underline;
 }
 
@@ -42,19 +44,28 @@ a.navItem:hover {
     margin: 20px;
 }
 
-.tableWrapper {
+.table-wrapper {
     display: flex;
     flex-direction: row;
     width: 100%;
-    overflow: auto;
+    height: 80vh;
+    overflow-x: auto;
 }
 
-.tableColumn {
+.table-column {
     display: flex;
     flex-direction: column;
-    flex: 0 0 250px;
-    margin: 20px;
+    flex: 0 1 300px;
+    margin: 20px 25px;
+    padding: 20px;
+    min-width: 250px;
+    max-width: 300px;
+    overflow-y: auto;
+    overflow-x: visible;
     align-items: center;
+    border-radius: 10px;
+    max-width: 100%;
+    background-color: whitesmoke;
 }
 
 .table-header {
@@ -62,10 +73,11 @@ a.navItem:hover {
     font-size: larger;
     text-align: center;
     width: 100%;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid var(--black);
 }
 
 .box {
+    background-color: white;
     width: 100%;
     margin: 10px 0px;
     padding: 10px;
@@ -75,6 +87,7 @@ a.navItem:hover {
 }
 
 h1 {
+    color: var(--black);
     font-weight: normal;
 }
 
@@ -101,4 +114,15 @@ h1 {
 .box-date {
     margin: 3px 0;
     font-size: larger;
+}
+
+.shadow {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.vertical-line {
+    align-self: center;
+    margin: 0;
+    border-right: 2px solid #00003050;
+    height: 90%;
 }
