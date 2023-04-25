@@ -25,7 +25,6 @@ const getUserProfile = async () => {
       response.json()
     )
     .then((data) => {
-      console.log("test");
       try {
         document.getElementById(
           "eng-name-info"
@@ -35,12 +34,64 @@ const getUserProfile = async () => {
         ).innerHTML = `${data.user.firstname_th} ${data.user.lastname_th}`;
       }
       catch (error) {
-        console.log(error);
+        console.error(error);
       }
     })
     .catch((error) => {
       console.error(error);
       setPage('/login.html')
+    }
+    );
+};
+
+const getAssignments = async () => {
+  const options = {
+    method: "GET",
+    credentials: "include",
+  };
+  await fetch(
+    `http://${backendIPAddress}/courseville/get_courses`,
+    options
+  )
+    .then((response) =>
+      response.json()
+    )
+    .then((data) => data.data.student)
+    .then((course) => {
+      let allAssignments = []
+      for (let i = 0; i < course.length; i++) {
+        if (course[i].semester == 1) {
+          continue;
+        }
+        const options = {
+          method: "GET",
+          credentials: "include",
+        };
+        fetch(
+          `http://${backendIPAddress}/courseville/get_course_assignments/${course[i].cv_cid}`,
+          options
+        )
+          .then((response) =>
+            response.json()
+          )
+          .then((data) => data.data)
+          .then((assignment) => {
+            for (let j = 0; j < assignment.length; j++) {
+              assignment[j].cv_cid = course[i].cv_cid;
+              allAssignments.push(assignment[j]);
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          }
+          );
+      }
+      allAssignments = allAssignments.sort((a, b) => parseInt(b.duetime) - parseInt(a.duetime));
+      allAssignments = allAssignments.sort((a, b) => parseInt(b.cv_cid) - parseInt(a.cv_cid));
+      console.log(Date.now());
+    })
+    .catch((error) => {
+      console.error(error);
     }
     );
 };
