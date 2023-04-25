@@ -15,6 +15,7 @@ body {
 
 .nav {
     display: flex;
+    flex: 0 0 auto;
     flex-direction: row;
     background-color: var(--pm);
     padding: 10px;
@@ -38,9 +39,14 @@ a.nav-item {
 
 a.nav-item:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .main {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    height: calc(100% - 110px);
     margin: 20px;
 }
 
@@ -136,4 +142,27 @@ h1 {
     margin: 0;
     border-right: 2px solid #00003050;
     height: 90%;
+}
+
+.fullscreen {
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.login {
+    font-size: larger;
+    display: inline;
+    background-color: var(--pm);
+    color: white;
+    border-radius: 10px;
+    padding: 5px 30px;
+}
+
+.login:hover {
+    text-decoration: underline;
+    background-color: #0b7abf;
+    cursor: pointer;
 }

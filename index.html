@@ -7,15 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo Board</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script_cv.js" defer></script>
 </head>
 
-<body>
+<body onload=getUserProfile()>
     <div class="nav">
         <img src="/assets/img/logowithwhite.png" style="margin-right: 10px;">
         <h1 class="nav-item"> Group 31 </h1>
-        <a class="nav-item" style="margin-left: auto;" href="/login.html"> Log In </a>
+        <a class="nav-item" style="margin-left: auto;" onclick=logout()> Log Out </a>
     </div>
     <div class="main">
+        <p class="info"> Name-Surname (English) : <span id="eng-name-info"></span></br>
+            Name-Surname (Thai) : <span id="thai-name-info"></span></p>
         <h1 style="margin-bottom: 0;">📝 ToDo List</h1>
         <div class="table-wrapper">
             <div class="table-column">
