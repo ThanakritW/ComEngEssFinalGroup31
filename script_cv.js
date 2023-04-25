@@ -26,12 +26,17 @@ const getUserProfile = async () => {
     )
     .then((data) => {
       console.log("test");
-      document.getElementById(
-        "eng-name-info"
-      ).innerHTML = `${data.user.firstname_en} ${data.user.lastname_en}`;
-      document.getElementById(
-        "thai-name-info"
-      ).innerHTML = `${data.user.firstname_th} ${data.user.lastname_th}`;
+      try {
+        document.getElementById(
+          "eng-name-info"
+        ).innerHTML = `${data.user.firstname_en} ${data.user.lastname_en}`;
+        document.getElementById(
+          "thai-name-info"
+        ).innerHTML = `${data.user.firstname_th} ${data.user.lastname_th}`;
+      }
+      catch (error) {
+        console.log(error);
+      }
     })
     .catch((error) => {
       console.error(error);
