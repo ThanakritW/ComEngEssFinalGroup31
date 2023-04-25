@@ -91,22 +91,33 @@ h1 {
     font-weight: normal;
 }
 
+.box:hover {
+    background-color: #d8d8d8;
+    cursor: pointer;
+}
+
 .box>h1 {
     padding: 0px 3px;
 }
 
 .box-title {
-    margin: 3px 0;
-    font-size: larger;
+    display: inline;
+    font-size: x-large;
+    color: var(--black);
+}
+
+.box-title:hover {
+    text-decoration: underline;
+    color: var(--pm);
+    cursor: pointer;
 }
 
 .box-priority-high>h1 {
     margin: 0;
     font-size: medium;
     padding: 0px 10px;
-    background-color: rgb(222, 145, 145);
+    background-color: rgb(220, 150, 150);
     display: inline;
-    color: red;
     border-radius: 5px;
     padding-right: auto;
 }
