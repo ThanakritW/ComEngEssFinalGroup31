@@ -80,6 +80,11 @@ a.nav-item:hover {
     border-bottom: 3px solid var(--black);
 }
 
+h1 {
+    color: var(--black);
+    font-weight: normal;
+}
+
 .box {
     background-color: white;
     width: 100%;
@@ -88,11 +93,8 @@ a.nav-item:hover {
     border-radius: 10px;
     box-sizing: border-box;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-
-h1 {
-    color: var(--black);
-    font-weight: normal;
+    transition: all 0.3s;
+    transition-timing-function: ease;
 }
 
 .box:hover {
