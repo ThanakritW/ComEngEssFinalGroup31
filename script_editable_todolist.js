@@ -182,32 +182,32 @@ const showItemsInTable = (itemsData) => {
   // ----------------- FILL IN YOUR CODE ABOVE THIS AREA ONLY ----------------- //
   itemsData.map((item) => {
     // ----------------- FILL IN YOUR CODE UNDER THIS AREA ONLY ----------------- //
-    let priority;
-    let priority_2;
+    let prior;
+    let prior_2;
     switch (item.priority) {
       case 1:
-        priority = "low";
-        priority_2 = "Low";
+        prior = "low";
+        prior_2 = "Low";
         break;
       case 2:
-        priority = "medium";
-        priority_2 = "Medium";
+        prior = "medium";
+        prior_2 = "Medium";
         break;
       case 3:
-        priority = "high";
-        priority_2 = "High";
+        prior = "high";
+        prior_2 = "High";
         break;
       default:
-        priority = "completed";
-        priority_2 = "Completed";
+        prior = "completed";
+        prior_2 = "Completed";
     }
     if (item.status == "No Status" || item.status == "") {
       no_status.innerHTML += `
         <div class="box" onclick="PopUpOnClick()">
           <h1 class="box-title hover-1">${item.title}</h1>
           <h2 class="box-title-2">${item.course_id}</h2>
-          <div class="box-priority-${priority}">
-            <h1>${priority_2}</h1>
+          <div class="box-priority-${prior}">
+            <h1>${prior_2}</h1>
           </div>
           <h1 class="box-date">📆 ${item.due_date}</h1>
         </div>
@@ -218,8 +218,8 @@ const showItemsInTable = (itemsData) => {
         <div class="box" onclick="PopUpOnClick()">
           <h1 class="box-title hover-1">${item.title}</h1>
           <h2 class="box-title-2">${item.course_id}</h2>
-          <div class="box-priority-${priority}">
-            <h1>${priority_2}</h1>
+          <div class="box-priority-${prior}">
+            <h1>${prior_2}</h1>
           </div>
           <h1 class="box-date">📆 ${item.due_date}</h1>
         </div>
@@ -230,8 +230,8 @@ const showItemsInTable = (itemsData) => {
         <div class="box" onclick="PopUpOnClick()">
           <h1 class="box-title hover-1">${item.title}</h1>
           <h2 class="box-title-2">${item.course_id}</h2>
-          <div class="box-priority-${priority}">
-            <h1>${priority_2}</h1>
+          <div class="box-priority-${prior}">
+            <h1>${prior_2}</h1>
           </div>
           <h1 class="box-date">📆 ${item.due_date}</h1>
         </div>
@@ -244,8 +244,8 @@ const showItemsInTable = (itemsData) => {
         <div class="box" onclick="PopUpOnClick()">
           <h1 class="box-title hover-1">${item.title}</h1>
           <h2 class="box-title-2">${item.course_id}</h2>
-          <div class="box-priority-${priority}">
-            <h1>${priority_2}</h1>
+          <div class="box-priority-${prior}">
+            <h1>${prior_2}</h1>
           </div>
           <h1 class="box-date">📆 ${item.due_date}</h1>
         </div>
@@ -278,6 +278,66 @@ const showItemsInTable = (itemsData) => {
     </div>
       `;
 };
+
+const addItem = async () => {
+  const course_id = document.getElementById("course-id-to-add").value;
+  const status = document.getElementById("status-to-add").value;
+  const priority = document.getElementById("priority-to-add").value;
+  const description = document.getElementById("description-to-add").value;
+  const due_date = document.getElementById("due-date-to-add").value;
+  const title = document.getElementById("title-to-add").value;
+
+  const itemToAdd = {
+    course_id: course_id,
+    status: status,
+    priority: priority,
+    description: description,
+    due_date: due_date,
+    title: title,
+  }
+
+  const options = {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(itemToAdd)
+  }
+
+  await fetch(`http://${backendIPAddress}/items`, options)
+    .then((response) => {
+      document.getElementById("course-id-to-add").value = 0;
+      document.getElementById("status-to-add").value = 0;
+      document.getElementById("priority-to-add").value = 0;
+      document.getElementById("description-to-add").value = "";
+      document.getElementById("due-date-to-add").value = "";
+      document.getElementById("title-to-add").value = "";
+    })
+    .catch((error) => console.error(error));
+
+  console.log("Showing items from database.");
+  await getItemsFromDB();
+  console.log(itemsData);
+  showItemsInTable(itemsData);
+}
+
+const deleteItem = async (item_id) => {
+  const options = {
+    method: "DELETE",
+    credentials: "include",
+  };
+  await fetch(`http://${backendIPAddress}/items/` + item_id, options)
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => console.error(error));
+
+  console.log("Showing items from database.");
+  await getItemsFromDB();
+  showItemsInTable(itemsData);
+};
+
 
 document.addEventListener("DOMContentLoaded", async function (event) {
   // console.log("Showing group members.");
