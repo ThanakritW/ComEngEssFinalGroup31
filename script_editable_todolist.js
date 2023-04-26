@@ -185,15 +185,15 @@ const showItemsInTable = (itemsData) => {
     let prior;
     let prior_2;
     switch (item.priority) {
-      case 1:
+      case 0:
         prior = "low";
         prior_2 = "Low";
         break;
-      case 2:
+      case 1:
         prior = "medium";
         prior_2 = "Medium";
         break;
-      case 3:
+      case 2:
         prior = "high";
         prior_2 = "High";
         break;
@@ -238,8 +238,8 @@ const showItemsInTable = (itemsData) => {
           `;
     }
     else if (item.status == "Completed") {
-      priority = "completed";
-      priority_2 = "Completed";
+      prior = "completed";
+      prior_2 = "Completed";
       com_pleted.innerHTML += `
         <div class="box" onclick="PopUpOnClick()">
           <h1 class="box-title hover-1">${item.title}</h1>
