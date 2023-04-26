@@ -108,3 +108,70 @@ function PopUpOnClick() {
 function PopDownOnClick() {
   myPopup.classList.remove("show");
 }
+
+//ping below------------------------------------------------------------
+let itemsData;
+
+// const authorizeApplication = () => {
+//   window.location.href = `http://${backendIPAddress}/courseville/auth_app`;
+// };
+
+// function setPage(link) {
+//   const content = document.querySelector('.main');
+//   fetch(link).then(res => res.text()).then(data => { content.innerHTML = data });
+// };
+
+// // Example: Send Get user profile ("GET") request to backend server and show the response on the webpage
+// const getUserProfile = async () => {
+//   const options = {
+//     method: "GET",
+//     credentials: "include",
+//   };
+//   await fetch(
+//     `http://${backendIPAddress}/courseville/get_profile_info`,
+//     options
+//   )
+//     .then((response) =>
+//       response.json()
+//     )
+//     .then((data) => {
+//       try {
+//         document.getElementById(
+//           "eng-name-info"
+//         ).innerHTML = `${data.user.firstname_en} ${data.user.lastname_en}`;
+//         document.getElementById(
+//           "thai-name-info"
+//         ).innerHTML = `${data.user.firstname_th} ${data.user.lastname_th}`;
+//       }
+//       catch (error) {
+//         console.error(error);
+//       }
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//       setPage('/login.html')
+//     }
+//     );
+// };
+
+const getItemsFromDB = async () => {
+  const options = {
+    method: "GET",
+    credentials: "include",
+  };
+  await fetch(`http://${backendIPAddress}/items/`, options)
+    .then((response) => response.json())
+    .then((data) => {
+      itemsData = data;
+    })
+    .catch((error) => console.error(error));
+};
+
+document.addEventListener("DOMContentLoaded", async function (event) {
+  // console.log("Showing group members.");
+  // await showGroupMembers();
+  console.log("Showing items from database.");
+  await getItemsFromDB();
+  // showItemsInTable(itemsData);
+});
+//ping above------------------------------------------------------------
