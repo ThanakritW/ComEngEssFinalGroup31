@@ -325,6 +325,7 @@ const addItem = async () => {
     description: description,
     due_date: due_date,
     title: title,
+    student_id: student_id,
   }
 
   const options = {
