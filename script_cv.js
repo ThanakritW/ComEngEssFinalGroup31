@@ -48,6 +48,7 @@ const getUserProfile = async () => {
 };
 
 const getAssignments = async () => {
+  console.log("fetching...");
   const options = {
     method: "GET",
     credentials: "include",
@@ -101,7 +102,28 @@ const drawAssignments = async () => {
   allAssignments = allAssignments.sort((a, b) => b.duetime - a.duetime);
   // allAssignments = allAssignments.sort((a, b) => parseInt(b.cv_cid) - parseInt(a.cv_cid));
   console.log({ allAssignments, values: Object.values(allAssignments) })
-  console.log(Date.now());
+  const now = Math.floor(Date.now() / 1000);
+  const sevenDays = now + 604800;
+  console.log(now)
+  console.log(sevenDays)
+  let flag = 0;
+  for (const assignment of allAssignments) {
+    if (assignment.duetime < sevenDays && flag == 0) {
+      flag = 1;
+      console.log(assignment.title);
+      console.log(assignment.duetime);
+      continue;
+
+    }
+    if (assignment.duetime < now && flag == 1) {
+      console.log(assignment.title);
+      console.log(assignment.duetime);
+      break;
+    }
+  }
+  console.log("COMPLETE");
+
+
 }
 
 const logout = async () => {
@@ -114,3 +136,14 @@ document.addEventListener("DOMContentLoaded", async function (event) {
   await drawAssignments(allAssignments);
 });
 
+
+
+{/* 
+<div class="box">
+  <h1 class="box-title hover-1">box name</h1>
+  <div class="box-priority-high">
+    <h1>High</h1>
+  </div>
+  <h1 class="box-date">📆yyyy/mm/dd 12:00PM </h1>
+</div> 
+*/}
