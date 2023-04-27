@@ -2,14 +2,14 @@
 const backendIPAddress = "127.0.0.1:3000";
 const frontendIPAddress = "127.0.0.1:5500";
 
-// const authorizeApplication = () => {
-//   window.location.href = `http://${backendIPAddress}/courseville/auth_app`;
-// };
+const authorizeApplication = () => {
+  window.location.href = `http://${backendIPAddress}/courseville/auth_app`;
+};
 
-// function setPage(link) {
-//   const content = document.querySelector('.main');
-//   fetch(link).then(res => res.text()).then(data => { content.innerHTML = data });
-// };
+function setPage(link) {
+  const content = document.querySelector('.main');
+  fetch(link).then(res => res.text()).then(data => { content.innerHTML = data });
+};
 
 // // Example: Send Get user profile ("GET") request to backend server and show the response on the webpage
 // const getUserProfile = async () => {
@@ -153,6 +153,33 @@ let itemsData;
 //     }
 //     );
 // };
+let student_id;
+const getUserId = async () => {
+  const options = {
+    method: "GET",
+    credentials: "include",
+  };
+  console.log("test1");
+  await fetch(
+    `http://${backendIPAddress}/courseville/get_user_id`,
+    options
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      try {
+        student_id = data.data.student.id;
+        console.log(data.data.student.id);
+        console.log("test2");
+        // document.getElementById(
+        //   "user-id"
+        // ).innerHTML = `${data.user.id}`;
+      }
+      catch (error) {
+        console.error(error);
+      }
+    })
+    .catch((error) => console.error(error));
+};
 
 const getItemsFromDB = async () => {
   const options = {
@@ -176,11 +203,15 @@ const showItemsInTable = (itemsData) => {
   in_progress.innerHTML = "";
   const com_pleted = document.getElementById("com-pleted");
   com_pleted.innerHTML = "";
+
+  if (student_id === "") {
+    console.log("No student_id ahhhh");
+  }
   // ----------------- FILL IN YOUR CODE UNDER THIS AREA ONLY ----------------- //
-  const items = itemsData;
+  const items = itemsData.filter(item => item.student_id === student_id);
   items.sort((a, b) => (a.priority < b.priority) ? 1 : -1);
   // ----------------- FILL IN YOUR CODE ABOVE THIS AREA ONLY ----------------- //
-  itemsData.map((item) => {
+  items.map((item) => {
     // ----------------- FILL IN YOUR CODE UNDER THIS AREA ONLY ----------------- //
     let prior;
     let prior_2;
@@ -338,12 +369,18 @@ const deleteItem = async (item_id) => {
   showItemsInTable(itemsData);
 };
 
+const logout = async () => {
+  window.location.href = `http://${backendIPAddress}/courseville/logout`;
+};
 
 document.addEventListener("DOMContentLoaded", async function (event) {
   // console.log("Showing group members.");
   // await showGroupMembers();
   console.log("Showing items from database.");
   await getItemsFromDB();
+  console.log("Showing User Id");
+  // await authorizeApplication();
+  await getUserId();
   console.log(itemsData);
   showItemsInTable(itemsData);
 });

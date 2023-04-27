@@ -50,6 +50,10 @@ a.nav-item:hover {
     margin: 20px;
 }
 
+a {
+    text-decoration: none;
+}
+
 .table-wrapper {
     display: flex;
     flex-direction: row;
@@ -80,6 +84,8 @@ a.nav-item:hover {
     border-bottom: 3px solid var(--black);
 }
 
+
+
 h1 {
     color: var(--black);
     font-weight: normal;
@@ -108,7 +114,13 @@ h1 {
 
 .box-title {
     display: inline;
-    font-size: x-large;
+    font-size: larger;
+    color: var(--black);
+}
+
+.box-course {
+    display: inline;
+    font-size: small;
     color: var(--black);
 }
 
