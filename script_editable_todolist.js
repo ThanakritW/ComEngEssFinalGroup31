@@ -189,7 +189,7 @@ const getItemsFromDB = async () => {
   await fetch(`http://${backendIPAddress}/items/`, options)
     .then((response) => response.json())
     .then((data) => {
-      itemsData = data;
+      itemsData = data.filter(item => item.student_id === student_id);
     })
     .catch((error) => console.error(error));
 };
@@ -208,7 +208,7 @@ const showItemsInTable = (itemsData) => {
     console.log("No student_id ahhhh");
   }
   // ----------------- FILL IN YOUR CODE UNDER THIS AREA ONLY ----------------- //
-  const items = itemsData.filter(item => item.student_id === student_id);
+  const items = itemsData;
   items.sort((a, b) => (a.priority < b.priority) ? 1 : -1);
   // ----------------- FILL IN YOUR CODE ABOVE THIS AREA ONLY ----------------- //
   items.map((item) => {
@@ -376,11 +376,11 @@ const logout = async () => {
 document.addEventListener("DOMContentLoaded", async function (event) {
   // console.log("Showing group members.");
   // await showGroupMembers();
+  console.log("Showing User Id");
+  await getUserId();
   console.log("Showing items from database.");
   await getItemsFromDB();
-  console.log("Showing User Id");
   // await authorizeApplication();
-  await getUserId();
   console.log(itemsData);
   showItemsInTable(itemsData);
 });
