@@ -243,6 +243,75 @@ const deleteItem = async (item_id) => {
   console.log(itemsData);
 };
 
+// susu kup p'muang :>
+// const editItem = async (taskStatus, item_id) => {
+//   let priority = parseInt(document.getElementById("priority-to-edit").value);
+//   let description = document.getElementById("description-to-edit").value;
+//   let due_date = document.getElementById("due-date-to-edit").value;
+//   let realTitle = document.getElementById("real-title-to-edit").value;
+//   let title = document.getElementById("title-to-edit").value;
+//   let status = taskStatus;
+
+//   if (document.getElementById("new-priority-to-edit").value != priority) {
+//     priority = document.getElementById("new-priority-to-edit").value;
+//     document.getElementById("new-priority-to-edit").value = 0;
+//   }
+//   if (document.getElementById("new-description-to-edit").value != '') {
+//     description = document.getElementById("new-description-to-edit").value;
+//     document.getElementById("new-description-to-edit").value = '';
+//   }
+//   if (document.getElementById("new-due-date-to-edit").value != '') {
+//     due_date = document.getElementById("new-due-date-to-edit").value;
+//     document.getElementById("new-due-date-to-edit").value = '';
+//   }
+//   if (document.getElementById("new-real-title-to-edit").value != '') {
+//     realTitle = document.getElementById("new-real-title-to-edit").value;
+//     document.getElementById("new-real-title-to-edit").value = '';
+//   }
+//   if (document.getElementById("new-title-to-edit").value != '') {
+//     title = document.getElementById("new-title-to-edit").value;
+//     document.getElementById("new-title-to-edit").value = '';
+//   }
+//   if (document.getElementById("new-status-to-edit").value != status) {
+//     status = document.getElementById("new-status-to-edit").value;
+//     document.getElementById("new-status-to-edit").value = '';
+//   }
+
+//   const itemToUpdate = {
+//     realTitle: realTitle,
+//     status: status,
+//     priority: priority,
+//     description: description,
+//     due_date: due_date,
+//     title: title,
+//     student_id: student_id,
+//   }
+
+//   const options = {
+//     method: "PUT",
+//     credentials: "include",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify(itemToUpdate)
+//   }
+
+//   await fetch(`http://${backendIPAddress}/items/` + item_id, options)
+//     .then((response) => {
+//       document.getElementById("priority-to-edit").value = 0;
+//       document.getElementById("description-to-edit").value = "";
+//       document.getElementById("due-date-to-edit").value = "";
+//       document.getElementById("title-to-edit").value = "";
+//       document.getElementById("real-title-to-edit").value = "";
+//     })
+//     .catch((error) => console.error(error));
+
+//   console.log("Showing updated items from database.");
+//   await getItemsFromDB();
+//   console.log(itemsData);
+//   showItemsInTable(itemsData);
+// }
+
 const initTodo = async () => {
   console.log("Showing User Id");
   await getUserId();
