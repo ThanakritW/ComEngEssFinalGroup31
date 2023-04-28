@@ -1,78 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Todo Board</title>
-  <link rel="stylesheet" href="style_editable_todolist.css" />
-  <script src="script_editable_todolist.js" defer></script>
-</head>
-
-<body>
-  <h1 style="margin-bottom: 0">📝 My To Do List</h1>
-  <div class="table-wrapper">
-    <div class="table-column">
-      <h1 class="table-header">No Status</h1>
-      <div class="scrollable">
-        <div id="no-status"></div>
-      </div>
-    </div>
-
-    <div class="vertical-line"></div>
-    <div class="table-column">
-      <h1 class="table-header">Next Up</h1>
-      <div class="scrollable">
-        <div id="next-up"></div>
-      </div>
-    </div>
-
-    <div class="vertical-line"></div>
-    <div class="table-column">
-      <h1 class="table-header">In Progress</h1>
-      <div class="scrollable">
-        <div id="in-progress"></div>
-      </div>
-    </div>
-
-    <div class="vertical-line"></div>
-    <div class="table-column">
-      <h1 class="table-header">Completed</h1>
-      <div class="scrollable">
-        <div id="com-pleted"></div>
-      </div>
-    </div>
-
-    <div id="addNewTaskPopUp" class="popup">
-      <div class="popUpScreen" , id="popUpScreen">
-        <h1 class="box-title">Select subject</h1>
-        <br />
-        <select name="title-to-add" id="title-to-add"></select>
-        <br />
-        <div id="insertInputBox">
-        </div>
-        <h1 class="box-priority">Description</h1>
-        <br />
-        <input type="text" id="description-to-add" name="description-to-add" placeholder="describe" />
-        <br />
-        <h1 class="box-priority">Set priority</h1>
-        <br />
-        <select name="priority-to-add" id="priority-to-add"></select>
-        <br />
-        <h1 class="box-priority">Set due date</h1>
-        <div class="box-date">
-          📆
-          <input type="date" id="due-date-to-add" name="due-date-to-add" value="2023-01-01" />
-        </div>
-        <br />
-        <div id="insertButton">
-        </div>
-        <button id="closePopup" onclick="PopDownOnClick()">Close</button>
-      </div>
+<h1 style="margin-bottom: 0">📝 My To Do List</h1>
+<div class="table-wrapper">
+  <div class="table-column">
+    <h1 class="table-header">No Status</h1>
+    <div class="scrollable">
+      <div id="no-status"></div>
     </div>
   </div>
-</body>
-<footer onload="initTodo()"> </footer>
 
-</html>
+  <div class="vertical-line"></div>
+  <div class="table-column">
+    <h1 class="table-header">Next Up</h1>
+    <div class="scrollable">
+      <div id="next-up"></div>
+    </div>
+  </div>
+
+  <div class="vertical-line"></div>
+  <div class="table-column">
+    <h1 class="table-header">In Progress</h1>
+    <div class="scrollable">
+      <div id="in-progress"></div>
+    </div>
+  </div>
+
+  <div class="vertical-line"></div>
+  <div class="table-column">
+    <h1 class="table-header">Completed</h1>
+    <div class="scrollable">
+      <div id="com-pleted"></div>
+    </div>
+  </div>
+
+  <div id="addNewTaskPopUp" class="popup">
+    <div class="popUpScreen" , id="popUpScreen">
+      <h1 class="box-title">Select subject</h1>
+      <br />
+      <select name="title-to-add" id="title-to-add"></select>
+      <br />
+      <div id="insertInputBox">
+      </div>
+      <h1 class="box-priority">Description</h1>
+      <br />
+      <input type="text" id="description-to-add" name="description-to-add" placeholder="describe" />
+      <br />
+      <h1 class="box-priority">Set priority</h1>
+      <br />
+      <select name="priority-to-add" id="priority-to-add"></select>
+      <br />
+      <h1 class="box-priority">Set due date</h1>
+      <div class="box-date">
+        📆
+        <input type="date" id="due-date-to-add" name="due-date-to-add" value="2023-01-01" />
+      </div>
+      <br />
+      <div id="insertButton">
+      </div>
+      <button id="closePopup" onclick="PopDownOnClick()">Close</button>
+    </div>
+  </div>
+</div>
