@@ -188,7 +188,7 @@ h1 {
 .scrollable {
     width: 100%;
     padding: 0 10px;
-    min-height: calc(100% - 33px);
+    height: calc(100% - 63px);
     overflow-y: auto;
     overflow-x: visible;
 }
