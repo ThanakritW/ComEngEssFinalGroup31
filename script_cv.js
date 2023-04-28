@@ -133,7 +133,7 @@ const getAssignments = async () => {
 };
 
 const drawAssignments = async () => {
-  allAssignments = allAssignments.sort((a, b) => b.duetime - a.duetime);
+  allAssignments = allAssignments.sort((a, b) => a.duetime - b.duetime);
   // allAssignments = allAssignments.sort((a, b) => parseInt(b.cv_cid) - parseInt(a.cv_cid));
   console.log(allAssignments)
   const assignedAssigment = [];
