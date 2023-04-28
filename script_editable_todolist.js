@@ -161,10 +161,7 @@ const createNewTask = (status, item, prior, prior_2) => {
     <div class="box-priority-${prior}">
       <h1>${prior_2}</h1>
     </div>
-    <div class="box-date">
-      📆
-      <h1>${dateToString(item.due_date)}</h1>
-    </div>
+    <h1 class="box-date">📆 ${dateToString(item.due_date)}</h1>
   </div>
     `;
 }
@@ -184,7 +181,7 @@ const createAddTask = (status, status_i) => {
       prior = "Completed";
   }
   status.innerHTML += `
-  <div class="box" onclick="PopUpOnClick('${prior}')">
+  <div class="box box-add-task" onclick="PopUpOnClick('${prior}')">
     <h1 class="box-add-new-list">Add new list</h1>
   <div class="box-add-new-list-2">⊕</div>
   </div>

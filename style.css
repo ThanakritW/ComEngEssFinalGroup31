@@ -363,7 +363,10 @@ h1 {
     border: #888888 solid 1px;
     width: 80%;
     max-width: 500px;
+    max-height: 70vh;
     font-weight: bolder;
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
 .TaskEditScreen {
@@ -488,4 +491,58 @@ h1 {
 .box-form-input:focus {
     border: 1.5px double var(--pm) !important;
     outline: none;
+}
+
+.box-add-task>.box-add-new-list-2 {
+    transition: all 0.3s ease-out;
+}
+
+.box-add-task:hover>.box-add-new-list-2 {
+    transition: all 0.3s ease-out;
+    transform: scale(1.7);
+}
+
+.box-add-task:hover>h1,
+.box-add-task:hover>div {
+    transition: all 0.3s ease-out;
+    animation: addTaskRGB linear 8s infinite;
+}
+
+
+@keyframes addTaskRGB {
+    0% {
+        color: red;
+    }
+
+    12.5% {
+        color: rgb(255, 134, 20);
+    }
+
+    25% {
+        color: rgb(226, 195, 38);
+    }
+
+    37.5% {
+        color: rgb(36, 191, 31);
+    }
+
+    50% {
+        color: rgb(37, 131, 208);
+    }
+
+    62.5% {
+        color: rgb(46, 34, 182);
+    }
+
+    75% {
+        color: rgb(87, 37, 216);
+    }
+
+    87.5% {
+        color: rgb(153, 4, 195);
+    }
+
+    100% {
+        color: red
+    }
 }
