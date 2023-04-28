@@ -152,9 +152,12 @@ const showItemsInTable = (itemsData) => {
 };
 
 const createNewTask = (status, item, prior, prior_2) => {
+  console.log(item.description)
+  let newDescription = item.description
+  newDescription = newDescription.replace(/\n/g, "<br/>")
   status.innerHTML += `
   <div class="box" onclick="TaskDescPopUpOnClick('${item.realTitle}', '${item.title}', ${item.priority}, 
-  '${item.due_date}', '${item.description}', '${item.item_id}', '${status}')">
+  '${item.due_date}', '${newDescription}', '${item.item_id}', '${status}')">
     <h1 class="box-real-title">${item.realTitle}</h1>
     <br/>
     <h1 class="box-title">${item.title}</h1>
@@ -247,26 +250,21 @@ function TaskDescPopUpOnClick(realtitle, title, priority_in, date_in, descriptio
   const item_id = item_id_in;
 
   TaskDescScreen.innerHTML = `
-  <h1 class="box-real-title" id="task-desc-title">${realTitle}</h1>
-  <br />
-  <h1 class="box-title" id="task-desc-subject">${subject}</h1>
+  <h1 class="box-desc-title" id="task-desc-title">${realTitle}</h1>
+  <h1 class="box-form-label" id="task-desc-subject">${subject}</h1>
   <div class="box-priority-${prior_t}">
       <h1>${prior_t_2}</h1>
   </div>
-  <div class="box-date">
-    📆
-    <input
-    type="datetime-local"
-    id="due-date-to-edit"
-    name="due-date-to-edit"
-    value="${date}"
-    />
+  <h1 class="box-date">📆 ${dateToString(date)}</h1>
+  <h1 class="box-form-label" style="font-weight:bold;">Description</h1>
+  <hr style="width:100%; border:1px solid black"/>
+  <div class="box-desc"> 
+    <h1 class="box-form-label">${description}</h1>
   </div>
-  <h1 class="box-title-2">${description}</h1>
-  <button id="editTask" onclick="preEdit('${realTitle}', '${subject}', ${priority_in}, 
-  '${date}', '${description}', '${item_id}', '${status}')">Edit task</button>
-  <button id="deleteTask" onclick="deleteItem('${item_id}')">Delete task</button>
-  <button id="closePopup" onclick="TaskDescPopDownOnClick()">Close</button>
+  <button class="text-med edit-button" id="editTask" onclick="preEdit('${realTitle}', '${subject}', ${priority_in}, 
+  '${date}', '${description}', '${item_id}', '${status}')">Edit</button>
+  <button class="text-med close-button" id="deleteTask" onclick="deleteItem('${item_id}')">Delete</button>
+  <button class="text-med etc-button" id="closePopup" onclick="TaskDescPopDownOnClick()">Close</button>
   `;
   taskDescPopUp.classList.add("show");
 }
@@ -382,13 +380,13 @@ const preEdit = async (realtitle, title, priority_in, date_in, description_in, i
   document.getElementById("real-title-to-edit").value = realtitle;
   document.getElementById("new-title-to-edit").value = title;
   document.getElementById("due-date-to-edit").value = date_in;
-  document.getElementById("description-to-edit").value = description_in;
+  document.getElementById("description-to-edit").value = description_in.replace(/<br\s*\/?>/g, "\n");
 
 
   document.getElementById("insertButton_edit").innerHTML = `
-  <button id="confirmEdit" onclick="editItem('${realtitle}', '${title}', ${priority_in}, 
+  <button class="add-task-button" id="confirmEdit" onclick="editItem('${realtitle}', '${title}', ${priority_in}, 
   '${date_in}', '${description_in}', '${item_id_in}', '${status}')">Confirm</button>
-  <button id="closePopup" onclick="TaskEditPopDownOnClick()">Close</button>
+  <button class="close-button" id="closePopup" onclick="TaskEditPopDownOnClick()">Close</button>
   `;
 }
 
