@@ -75,6 +75,7 @@ const showItemsInTable = (itemsData) => {
   CourseTitle = new Set();
   items.sort((a, b) => (a.priority < b.priority) ? 1 : -1);
   items.map((item) => {
+    console.log(item);
     let prior;
     let prior_2;
     switch (item.priority) {
@@ -126,16 +127,23 @@ const showItemsInTable = (itemsData) => {
   priorityLists_edit.innerHTML += `<option value='2'>High</option>`;
 
   const statusList = document.getElementById("status-to-edit");
-  statusList.innerHTML += `<option value='0'>No Status</option>`;
-  statusList.innerHTML += `<option value='1'>Next Up</option>`;
-  statusList.innerHTML += `<option value='2'>In Progress</option>`;
-  statusList.innerHTML += `<option value='3'>Completed</option>`;
+  statusList.innerHTML = `
+  <option value='No Status'>No Status</option>
+  <option value='Next Up'>Next Up</option>
+  <option value='In Progress'>In Progress</option>
+  <option value='Completed'>Completed</option>
+  `;
+
+  // statusList.innerHTML += `<option value='No Status'>No Status</option>`;
+  // statusList.innerHTML += `<option value='Next Up'>Next Up</option>`;
+  // statusList.innerHTML += `<option value='In Progress'>In Progress</option>`;
+  // statusList.innerHTML += `<option value='Completed'>Completed</option>`;
 };
 
 const createNewTask = (status, item, prior, prior_2) => {
   status.innerHTML += `
   <div class="box" onclick="TaskDescPopUpOnClick('${item.realTitle}', '${item.title}', ${item.priority}, 
-  '${item.due_date}', '${item.description}', '${item.item_id}', '${status}')">
+  '${item.due_date}', '${item.description}', '${item.item_id}', '${item.status}')">
     <h1 class="box-real-title">${item.realTitle}</h1>
     <br/>
     <h1 class="box-title">${item.title}</h1>
@@ -146,8 +154,6 @@ const createNewTask = (status, item, prior, prior_2) => {
       📆
       <input
       type="datetime-local"
-      id="due-date-to-add"
-      name="due-date-to-add"
       value="${item.due_date}"
       />
     </div>
@@ -387,6 +393,8 @@ const editItem = async (realtitle, title, priority_in, date_in, description_in, 
   // let title = document.getElementById("title-to-edit").value;
   // let status = taskStatus;
 
+  console.log(realtitle, title, priority_in, date_in, description_in, item_id_in, status)
+
   if (document.getElementById("status-to-edit").value != status) {
     status = document.getElementById("status-to-edit").value;
     document.getElementById("status-to-edit").value = 0;
@@ -419,7 +427,6 @@ const editItem = async (realtitle, title, priority_in, date_in, description_in, 
     description: description_in,
     due_date: date_in,
     title: title,
-    item_id: item_id_in,
     student_id: student_id,
   }
 
