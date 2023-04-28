@@ -143,6 +143,10 @@ h1 {
     box-shadow: 0 3px 8px rgb(0, 0, 0, 0.24);
 }
 
+.shadow-heavy {
+    box-shadow: 0 3px 10px 0 rgba(26, 29, 32, 0.5);
+}
+
 .vertical-line {
     align-self: center;
     margin: 0;
@@ -151,6 +155,8 @@ h1 {
 }
 
 .fullscreen {
+    display: flex;
+    min-height: 100%;
     margin: auto;
     justify-content: center;
     align-items: center;
@@ -176,6 +182,7 @@ h1 {
 .scrollable {
     width: 100%;
     padding: 0 10px;
+    min-height: calc(100% - 33px);
     overflow-y: auto;
     overflow-x: visible;
 }
@@ -344,4 +351,46 @@ h1 {
     border: #888888 solid 1px;
     width: 30%;
     font-weight: bolder;
+}
+
+.lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid var(--black);
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: var(--black) transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+
+@keyframes lds-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
