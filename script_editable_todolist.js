@@ -12,7 +12,7 @@ function getDateLabel() {
   const hour = ('0' + now.getHours()).slice(-2);
   const minute = ('0' + now.getMinutes()).slice(-2);
   console.log(dateString + `T${hour}:${minute}`);
-  document.getElementById("due-date-to-add").value = dateString + `T${hour}:12`;
+  document.getElementById("due-date-to-add").value = dateString + `T${hour}:${minute}`;
 }
 
 const getUserId = async () => {
