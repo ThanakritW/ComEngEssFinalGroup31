@@ -4,8 +4,17 @@ const frontendIPAddress = "127.0.0.1:5500";
 
 let itemsData;
 let CourseTitle = new Set();
-
 let student_id;
+
+function getDateLabel() {
+  const now = new Date();
+  const dateString = now.toISOString().slice(0, 10);
+  const hour = ('0' + now.getHours()).slice(-2);
+  const minute = ('0' + now.getMinutes()).slice(-2);
+  console.log(dateString + `T${hour}:${minute}`);
+  document.getElementById("due-date-to-add").value = dateString + `T${hour}:12`;
+}
+
 const getUserId = async () => {
   const options = {
     method: "GET",
@@ -188,6 +197,7 @@ const createAddTask = (status, status_i) => {
 
 // add new task
 function PopUpOnClick(taskStatus) {
+  getDateLabel()
   insertInputBox.innerHTML = `
   <input
     type="text"

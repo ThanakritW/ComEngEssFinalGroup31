@@ -162,7 +162,7 @@ const drawAssignments = async () => {
   assignedAssigment.map(async (data) => {
     // console.log(data)
     assigned.innerHTML += `
-    <div class="box">
+    <div class="box" id="${data.itemid}">
       <a href="https://www.mycourseville.com/?q=courseville/worksheet/${data.cv_cid}/${data.itemid}"><h1 class="box-title hover-1">${getSensitive(data.duetime)}${data.title}</h1></a>
       <br/>
       <h1 class="box-course">${getCourseTitle(data.cv_cid)}</h1>
@@ -173,7 +173,7 @@ const drawAssignments = async () => {
   pastAssignment.map(async (data) => {
     // console.log(data)
     past.innerHTML += `
-    <div class="box">
+    <div class="box" id="${data.itemid}">
       <a href="https://www.mycourseville.com/?q=courseville/worksheet/${data.cv_cid}/${data.itemid}"><h1 class="box-title hover-1">${getSensitive(data.duetime)}${data.title}</h1></a>
       <br/>
       <h1 class="box-course">${getCourseTitle(data.cv_cid)}</h1>
@@ -184,7 +184,7 @@ const drawAssignments = async () => {
   nearAssignment.map(async (data) => {
     // console.log(data)
     near.innerHTML += `
-    <div class="box">
+    <div class="box" id="${data.itemid}">
       <a href="https://www.mycourseville.com/?q=courseville/worksheet/${data.cv_cid}/${data.itemid}"><h1 class="box-title hover-1">${getSensitive(data.duetime)}${data.title}</h1></a>
       <br/>
       <h1 class="box-course">${getCourseTitle(data.cv_cid)}</h1>
