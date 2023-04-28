@@ -116,18 +116,12 @@ const showItemsInTable = (itemsData) => {
   priorityLists.innerHTML += `<option value='3'>Completed</option>`;
 };
 
-const matchCourseTitletoId = (CourseTitle) => {
-  const items = itemsData;
-  items.map((item) => {
-    if (item.title == CourseTitle) return item.course_id;
-  });
-}
-
 const createNewTask = (status, item, prior, prior_2) => {
   status.innerHTML += `
   <div class="box" onclick="PopUpOnClick()">
-    <h1 class="box-title hover-1">${item.title}</h1>
-    <h2 class="box-title-2">${item.description}</h2>
+    <h1 class="box-real-title">${item.realTitle}</h1>
+    <br/>
+    <h1 class="box-title">${item.title}</h1>
     <div class="box-priority-${prior}">
       <h1>${prior_2}</h1>
     </div>
@@ -186,16 +180,17 @@ const addItem = async (taskStatus) => {
   const priority = parseInt(document.getElementById("priority-to-add").value);
   const description = document.getElementById("description-to-add").value;
   const due_date = document.getElementById("due-date-to-add").value;
+  const realTitle = document.getElementById("real-title-to-add").value;
   let title = document.getElementById("title-to-add").value;
   if (document.getElementById("new-title-to-add").value != '') {
     title = document.getElementById("new-title-to-add").value;
     document.getElementById("new-title-to-add").value = '';
   }
-  const course_id = matchCourseTitletoId(title);
   const status = taskStatus;
 
   const itemToAdd = {
-    course_id: course_id,
+    // course_id: course_id,
+    realTitle: realTitle,
     status: status,
     priority: priority,
     description: description,
@@ -221,6 +216,7 @@ const addItem = async (taskStatus) => {
       document.getElementById("description-to-add").value = "";
       document.getElementById("due-date-to-add").value = "";
       document.getElementById("title-to-add").value = "";
+      document.getElementById("real-title-to-add").value = "";
     })
     .catch((error) => console.error(error));
 

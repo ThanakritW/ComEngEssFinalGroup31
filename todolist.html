@@ -61,26 +61,46 @@
 
   <div id="addNewTaskPopUp" class="popup">
     <div class="popUpScreen" , id="popUpScreen">
+      <h1 class="box-title">Insert title</h1>
+      <br />
+      <input
+        type="text"
+        id="real-title-to-add"
+        name="real-title-to-add"
+        placeholder="title"
+      />
+      <br />
       <h1 class="box-title">Select subject</h1>
       <br />
       <select name="title-to-add" id="title-to-add"></select>
       <br />
       <div id="insertInputBox">
-        <input type="text" id="new-title-to-add" name="new-title-to-add" placeholder="or add new subject" />
+        <input
+          type="text"
+          id="new-title-to-add"
+          name="new-title-to-add"
+          placeholder="or add new subject"
+        />
       </div>
-      <h1 class="box-priority">Description</h1>
-      <br />
-      <input type="text" id="description-to-add" name="description-to-add" placeholder="describe" />
-      <br />
       <h1 class="box-priority">Set priority</h1>
-      <br />
       <select name="priority-to-add" id="priority-to-add"></select>
-      <br />
       <h1 class="box-priority">Set due date</h1>
       <div class="box-date">
         📆
-        <input type="date" id="due-date-to-add" name="due-date-to-add" value="2023-01-01" />
+        <input
+          type="date"
+          id="due-date-to-add"
+          name="due-date-to-add"
+          value="2023-01-01"
+        />
       </div>
+      <h1 class="box-priority">Description</h1>
+      <input
+        type="text"
+        id="description-to-add"
+        name="description-to-add"
+        placeholder="describe"
+      />
       <br />
       <div id="insertButton">
         <!-- <button id="addTask" onclick="addItem('No Status')">

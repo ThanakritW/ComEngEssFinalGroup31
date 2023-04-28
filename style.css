@@ -125,6 +125,12 @@ h1 {
     cursor: pointer;
 }
 
+.box-real-title {
+    display: inline;
+    font-size: x-large;
+    color: var(--black);
+}
+
 .box-priority-high>h1 {
     margin: 0;
     font-size: medium;
