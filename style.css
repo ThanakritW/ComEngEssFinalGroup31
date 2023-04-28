@@ -26,13 +26,10 @@ body {
 }
 
 .nav-item {
-    margin: auto 0 auto 0;
+    margin: auto 10px;
     text-align: center;
     font-size: x-large;
     font-weight: normal;
-}
-
-a.nav-item {
     text-decoration: none;
     color: white;
 }

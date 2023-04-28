@@ -1,13 +1,12 @@
-"use strict"
 // TODO #4.0: Change this IP address to EC2 instance public IP address when you are going to deploy this web application
-const backendIPAddress = "127.0.0.1:3000";
-const frontendIPAddress = "127.0.0.1:5500";
 const now = Math.floor(Date.now() / 1000);
 const sevenDays = now + 604800;
+
 const authorizeApplication = () => {
   window.location.href = `http://${backendIPAddress}/courseville/auth_app`;
 };
 
+let authState = 0;
 let allAssignments = [];
 let courseInfo;
 
@@ -31,7 +30,13 @@ function epochToDateTime(epoch) {
 
 async function setPage(link) {
   const content = document.querySelector('.main');
-  fetch(link).then(res => res.text()).then(data => { content.innerHTML = data });
+  await fetch(link).then(res => res.text()).then(data => { content.innerHTML = data });
+  if (link == "/assignment.html") {
+    await initAssignment();
+  }
+  if (link == "/todolist.html") {
+    await initTodo();
+  }
 };
 
 function getCourseTitle(cv_cid) {
@@ -194,20 +199,48 @@ const logout = async () => {
   window.location.href = `http://${backendIPAddress}/courseville/logout`;
 };
 
-document.addEventListener("DOMContentLoaded", async function (event) {
-  await getUserProfile();
-  await getAssignments();
-  await drawAssignments(allAssignments);
-});
+const checkAuth = async () => {
+  const options = {
+    method: "GET",
+    credentials: "include",
+  };
+  await fetch(
+    `http://${backendIPAddress}/courseville/check_auth`,
+    options
+  )
+    .then((response) =>
+      response.json()
+    )
+    .then((data) => data.data.status)
+    .then((status) => {
+      console.log(status);
+      authState = status;
+      if (authState == 1) {
 
+        setPage('/assignment.html');
+      }
+      else {
+        console.log("USER IS NOT LOGGED IN")
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    }
+    );
+}
 
+const initAssignment = async () => {
+  console.log(getAuthState())
+  if (getAuthState() == 1) {
+    await getAssignments();
+    await drawAssignments(allAssignments);
+  }
+  else {
+    setPage("/login.html");
+    console.log("NOT LOGGED IN");
+  }
+}
 
-{/* 
-<div class="box">
-  <h1 class="box-title hover-1">box name</h1>
-  <div class="box-priority-high">
-    <h1>High</h1>
-  </div>
-  <h1 class="box-date">📆yyyy/mm/dd 12:00PM </h1>
-</div> 
-*/}
+const getAuthState = () => {
+  return authState;
+}  

@@ -7,72 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo Board</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script_editable_todolist.js" defer></script>
     <script src="script_cv.js" defer></script>
 </head>
 
-<body>
+<body onload="checkAuth()">
     <div class="nav">
         <img src="/assets/img/logowithwhite.png" style="margin-right: 10px;">
-        <a class="nav-item" style="margin-left: auto; font-size: larger;" onclick=logout()> Log Out </a>
+        <a class="nav-item" onclick="setPage('/assignment.html')"> Assignment </a>
+        <a class="nav-item" onclick="setPage('/todolist.html')"> ToDo <!-- Hover added -->
+        </a>
+        <h1 class="nav-status" style="margin-left: auto;"></h1>
+        <a class="nav-item nav-logout" onclick=logout()> Log Out </a>
     </div>
     <div class="main">
-        <!-- <p class="info"> Name-Surname (English) : <span id="eng-name-info"></span></br>
-            Name-Surname (Thai) : <span id="thai-name-info"></span></p> -->
-        <h1 style="margin-bottom: 0;">📝 ToDo List</h1>
-        <div class="table-wrapper">
-            <div class="table-column">
-                <h1 class="table-header">Assigned</h1>
-                <div class="scrollable" id="Assigned">
-                    <div class="box">
-                        <h1 class="box-title hover-1">box name</h1>
-                        <div class="box-priority-high">
-                            <h1>High</h1>
-                        </div>
-                        <h1 class="box-date">📆yyyy/mm/dd 12:00PM </h1>
-                    </div>
-                    <div class="box">
-                        <h1 class="box-title">box name</h1>
-                        <div class="box-priority-high">
-                            <h1>High</h1>
-                        </div>
-                        <h1 class="box-date">📆3/5/2023 </h1>
-                    </div>
-                    <div class="box">
-                        <h1 class="box-title">long long long long long longbox name</h1>
-                        <div class="box-priority-high">
-                            <h1>High</h1>
-                        </div>
-                        <h1 class="box-date">📆3/5/2023 </h1>
-                    </div>
-                </div>
-            </div>
-            <div class="vertical-line"></div>
-            <div class="table-column">
-                <h1 class="table-header">Near Due Date</h1>
-                <div class="scrollable" id="Near">
-
-                    <div class="box">
-                        <h1 class="box-title">box name</h1>
-                        <div class="box-priority-high">
-                            <h1>High</h1>
-                        </div>
-                        <h1 class="box-date">📆3/5/2023 </h1>
-                    </div>
-                </div>
-            </div>
-            <div class="vertical-line"></div>
-            <div class="table-column">
-                <h1 class="table-header">Past Due Date</h1>
-                <div class="scrollable" id="Past">
-                    <div class="box">
-                        <h1 class="box-title">box name</h1>
-                        <div class="box-priority-high">
-                            <h1>High</h1>
-                        </div>
-                        <h1 class="box-date">📆3/5/2023 </h1>
-                    </div>
-                </div>
-            </div>
+        <div class="fullscreen">
+            <h1>Welcome to <img src="/assets/img/logo.png" style="margin-right: 10px; height: 50px;"></h1>
+            <a onclick=authorizeApplication()>
+                <h1 class="login">Login</h1>
+            </a>
         </div>
     </div>
 </body>
