@@ -96,6 +96,8 @@ const showItemsInTable = (itemsData) => {
       createNewTask(in_progress, item, prior, prior_2)
     }
     else if (item.status == "Completed") {
+      prior = "completed";
+      prior_2 = "Completed";
       createNewTask(com_pleted, item, prior, prior_2)
     }
 
@@ -137,8 +139,8 @@ const createNewTask = (status, item, prior, prior_2) => {
   </button>
   </div>
     `;
-  }
-  
+}
+
 const createAddTask = (status, status_i) => {
   switch (status_i) {
     case 0:
