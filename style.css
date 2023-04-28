@@ -354,21 +354,15 @@ h1 {
 }
 
 
-.popUpScreen {
-    background-color: white;
-    margin: 10% auto;
-    padding: 20px;
-    border: #888888 solid 1px;
-    width: 30%;
-    font-weight: bolder;
-}
-
+.popUpScreen,
 .TaskDescScreen {
+    border-radius: 15px;
     background-color: white;
     margin: 10% auto;
     padding: 20px;
     border: #888888 solid 1px;
-    width: 30%;
+    width: 80%;
+    max-width: 500px;
     font-weight: bolder;
 }
 
@@ -465,4 +459,9 @@ h1 {
 
 *::-webkit-scrollbar-thumb {
     box-shadow: inset 0 0 0 10px var(--black);
+}
+
+.box-form-label {
+    font-size: larger;
+    margin: 0;
 }
