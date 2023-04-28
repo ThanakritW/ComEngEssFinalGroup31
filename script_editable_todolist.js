@@ -11,106 +11,9 @@ function setPage(link) {
   fetch(link).then(res => res.text()).then(data => { content.innerHTML = data });
 };
 
-// // Example: Send Get user profile ("GET") request to backend server and show the response on the webpage
-// const getUserProfile = async () => {
-//   const options = {
-//     method: "GET",
-//     credentials: "include",
-//   };
-//   await fetch(
-//     `http://${backendIPAddress}/courseville/get_profile_info`,
-//     options
-//   )
-//     .then((response) =>
-//       response.json()
-//     )
-//     .then((data) => {
-//       try {
-//         document.getElementById(
-//           "eng-name-info"
-//         ).innerHTML = `${data.user.firstname_en} ${data.user.lastname_en}`;
-//         document.getElementById(
-//           "thai-name-info"
-//         ).innerHTML = `${data.user.firstname_th} ${data.user.lastname_th}`;
-//       }
-//       catch (error) {
-//         console.error(error);
-//       }
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//       setPage('/login.html')
-//     }
-//     );
-// };
-
-// const getAssignments = async () => {
-//   const options = {
-//     method: "GET",
-//     credentials: "include",
-//   };
-//   await fetch(
-//     `http://${backendIPAddress}/courseville/get_courses`,
-//     options
-//   )
-//     .then((response) =>
-//       response.json()
-//     )
-//     .then((data) => data.data.student)
-//     .then((course) => {
-//       let allAssignments = []
-//       for (let i = 0; i < course.length; i++) {
-//         if (course[i].semester == 1) {
-//           continue;
-//         }
-//         const options = {
-//           method: "GET",
-//           credentials: "include",
-//         };
-//         fetch(
-//           `http://${backendIPAddress}/courseville/get_course_assignments/${course[i].cv_cid}`,
-//           options
-//         )
-//           .then((response) =>
-//             response.json()
-//           )
-//           .then((data) => data.data)
-//           .then((assignment) => {
-//             for (let j = 0; j < assignment.length; j++) {
-//               assignment[j].cv_cid = course[i].cv_cid;
-//               allAssignments.push(assignment[j]);
-//             }
-//           })
-//           .catch((error) => {
-//             console.error(error);
-//           }
-//           );
-//       }
-//       allAssignments = allAssignments.sort((a, b) => parseInt(b.duetime) - parseInt(a.duetime));
-//       allAssignments = allAssignments.sort((a, b) => parseInt(b.cv_cid) - parseInt(a.cv_cid));
-//       console.log(Date.now());
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//     }
-//     );
-// };
-
-// const logout = async () => {
-//   window.location.href = `http://${backendIPAddress}/courseville/logout`;
-// };
-
-// pop up
-
-function PopUpOnClick() {
-  myPopup.classList.add("show");
-}
-function PopDownOnClick() {
-  myPopup.classList.remove("show");
-}
-
 //ping below------------------------------------------------------------
 let itemsData;
+const CourseTitle = new Set();
 
 // const authorizeApplication = () => {
 //   window.location.href = `http://${backendIPAddress}/courseville/auth_app`;
@@ -190,11 +93,15 @@ const getItemsFromDB = async () => {
     .then((response) => response.json())
     .then((data) => {
       itemsData = data.filter(item => item.student_id === student_id);
+      // console.log(itemsData)
     })
     .catch((error) => console.error(error));
 };
 
 const showItemsInTable = (itemsData) => {
+  PopUpOnClick("No Status");
+  PopDownOnClick();
+
   const no_status = document.getElementById("no-status");
   no_status.innerHTML = "";
   const next_up = document.getElementById("next-up");
@@ -203,6 +110,10 @@ const showItemsInTable = (itemsData) => {
   in_progress.innerHTML = "";
   const com_pleted = document.getElementById("com-pleted");
   com_pleted.innerHTML = "";
+  const subjectLists = document.getElementById("title-to-add")
+  subjectLists.innerHTML = "<option value='0'>Subject</option>";
+  const priorityLists = document.getElementById("priority-to-add")
+  priorityLists.innerHTML = "<option value='0'>Low</option>";
 
   if (student_id === "") {
     console.log("No student_id ahhhh");
@@ -228,95 +139,134 @@ const showItemsInTable = (itemsData) => {
         prior = "high";
         prior_2 = "High";
         break;
-      default:
+      case 3:
         prior = "completed";
         prior_2 = "Completed";
     }
     if (item.status == "No Status" || item.status == "") {
-      no_status.innerHTML += `
-        <div class="box" onclick="PopUpOnClick()">
-          <h1 class="box-title hover-1">${item.title}</h1>
-          <h2 class="box-title-2">${item.course_id}</h2>
-          <div class="box-priority-${prior}">
-            <h1>${prior_2}</h1>
-          </div>
-          <h1 class="box-date">📆 ${item.due_date}</h1>
-        </div>
-          `;
+      createNewTask(no_status, item, prior, prior_2)
+      // no_status.innerHTML += `
+      //   <div class="box" onclick="PopUpOnClick()">
+      //     <h1 class="box-title hover-1">${item.title}</h1>
+      //     <h2 class="box-title-2">${item.course_id}</h2>
+      //     <div class="box-priority-${prior}">
+      //       <h1>${prior_2}</h1>
+      //     </div>
+      //     <h1 class="box-date">📆 ${item.due_date}</h1>
+      //   </div>
+      //     `;
     }
     else if (item.status == "Next Up") {
-      next_up.innerHTML += `
-        <div class="box" onclick="PopUpOnClick()">
-          <h1 class="box-title hover-1">${item.title}</h1>
-          <h2 class="box-title-2">${item.course_id}</h2>
-          <div class="box-priority-${prior}">
-            <h1>${prior_2}</h1>
-          </div>
-          <h1 class="box-date">📆 ${item.due_date}</h1>
-        </div>
-          `;
+      createNewTask(next_up, item, prior, prior_2)
     }
     else if (item.status == "In Progress") {
-      next_up.innerHTML += `
-        <div class="box" onclick="PopUpOnClick()">
-          <h1 class="box-title hover-1">${item.title}</h1>
-          <h2 class="box-title-2">${item.course_id}</h2>
-          <div class="box-priority-${prior}">
-            <h1>${prior_2}</h1>
-          </div>
-          <h1 class="box-date">📆 ${item.due_date}</h1>
-        </div>
-          `;
+      createNewTask(in_progress, item, prior, prior_2)
     }
     else if (item.status == "Completed") {
-      prior = "completed";
-      prior_2 = "Completed";
-      com_pleted.innerHTML += `
-        <div class="box" onclick="PopUpOnClick()">
-          <h1 class="box-title hover-1">${item.title}</h1>
-          <h2 class="box-title-2">${item.course_id}</h2>
-          <div class="box-priority-${prior}">
-            <h1>${prior_2}</h1>
-          </div>
-          <h1 class="box-date">📆 ${item.due_date}</h1>
-        </div>
-          `;
+      createNewTask(com_pleted, item, prior, prior_2)
     }
-    // ----------------- FILL IN YOUR CODE ABOVE THIS AREA ONLY ----------------- //
+
+    if (!(CourseTitle.has(item.title))) {
+      CourseTitle.add(item.title);
+      subjectLists.innerHTML += `<option value='${item.title}'>${item.title}</option>`;
+    }
+
+  // ----------------- FILL IN YOUR CODE ABOVE THIS AREA ONLY ----------------- //
   });
-  no_status.innerHTML += `
-    <div class="box" onclick="PopUpOnClick()">
-      <h1 class="box-add-new-list">Add new list</h1>
-    <div class="box-add-new-list-2">⊕</div>
-    </div>
-      `;
-  next_up.innerHTML += `
-    <div class="box" onclick="PopUpOnClick()">
-      <h1 class="box-add-new-list">Add new list</h1>
-    <div class="box-add-new-list-2">⊕</div>
-    </div>
-      `;
-  in_progress.innerHTML += `
-    <div class="box" onclick="PopUpOnClick()">
-      <h1 class="box-add-new-list">Add new list</h1>
-    <div class="box-add-new-list-2">⊕</div>
-    </div>
-      `;
-  com_pleted.innerHTML += `
-    <div class="box" onclick="PopUpOnClick()">
-      <h1 class="box-add-new-list">Add new list</h1>
-    <div class="box-add-new-list-2">⊕</div>
-    </div>
-      `;
+
+  createAddTask(no_status, 0);
+  // no_status.innerHTML += `
+  //   <div class="box" onclick="PopUpOnClick()">
+  //     <h1 class="box-add-new-list">Add new list</h1>
+  //   <div class="box-add-new-list-2">⊕</div>
+  //   </div>
+  //     `;
+  createAddTask(next_up, 1);
+  createAddTask(in_progress, 2);
+  createAddTask(com_pleted, 3);
+
+  priorityLists.innerHTML += `<option value='1'>Medium</option>`;
+  priorityLists.innerHTML += `<option value='2'>High</option>`;
+  priorityLists.innerHTML += `<option value='3'>Completed</option>`;
 };
 
-const addItem = async () => {
-  const course_id = document.getElementById("course-id-to-add").value;
-  const status = document.getElementById("status-to-add").value;
-  const priority = document.getElementById("priority-to-add").value;
+const matchCourseTitletoId = (CourseTitle) => {
+  const items = itemsData;
+  items.map((item) => {
+    if (item.title == CourseTitle) return item.course_id;
+  });
+}
+
+const createNewTask = (status, item, prior, prior_2) => {
+  status.innerHTML += `
+  <div class="box" onclick="PopUpOnClick()">
+    <h1 class="box-title hover-1">${item.title}</h1>
+    <h2 class="box-title-2">${item.description}</h2>
+    <div class="box-priority-${prior}">
+      <h1>${prior_2}</h1>
+    </div>
+    <h1 class="box-date">📆 ${item.due_date}</h1>
+    <button id="deleteTask" onclick="deleteItem('${item.item_id}')">
+    Delete task
+  </button>
+  </div>
+    `;
+  }
+  
+const createAddTask = (status, status_i) => {
+  switch (status_i) {
+    case 0:
+      prior = "No Status";
+      break;
+    case 1:
+      prior = "Next Up";
+      break;
+    case 2:
+      prior = "In Progress";
+      break;
+    default:
+      prior = "Completed";
+  }
+  status.innerHTML += `
+  <div class="box" onclick="PopUpOnClick('${prior}')">
+    <h1 class="box-add-new-list">Add new list</h1>
+  <div class="box-add-new-list-2">⊕</div>
+  </div>
+    `;
+}
+
+function PopUpOnClick(taskStatus) {
+  insertInputBox.innerHTML = `
+  <input
+    type="text"
+    id="new-title-to-add"
+    name="new-title-to-add"
+    placeholder="or add new subject"
+  />
+  `;
+  insertButton.innerHTML = `
+  <button id="addTask" onclick="addItem('${taskStatus}')">
+    Add task
+  </button>
+  `;
+  addNewTaskPopUp.classList.add("show");
+}
+
+function PopDownOnClick() {
+  addNewTaskPopUp.classList.remove("show");
+}
+
+const addItem = async (taskStatus) => {
+  const priority = parseInt(document.getElementById("priority-to-add").value);
   const description = document.getElementById("description-to-add").value;
   const due_date = document.getElementById("due-date-to-add").value;
-  const title = document.getElementById("title-to-add").value;
+  let title = document.getElementById("title-to-add").value;
+  if (document.getElementById("new-title-to-add").value != '') {
+    title = document.getElementById("new-title-to-add").value;
+    document.getElementById("new-title-to-add").value = '';
+  }
+  const course_id = matchCourseTitletoId(title);
+  const status = taskStatus;
 
   const itemToAdd = {
     course_id: course_id,
@@ -339,8 +289,8 @@ const addItem = async () => {
 
   await fetch(`http://${backendIPAddress}/items`, options)
     .then((response) => {
-      document.getElementById("course-id-to-add").value = 0;
-      document.getElementById("status-to-add").value = 0;
+      // document.getElementById("course-id-to-add").value = 0;
+      // document.getElementById("status-to-add").value = 0;
       document.getElementById("priority-to-add").value = 0;
       document.getElementById("description-to-add").value = "";
       document.getElementById("due-date-to-add").value = "";
@@ -368,6 +318,7 @@ const deleteItem = async (item_id) => {
   console.log("Showing items from database.");
   await getItemsFromDB();
   showItemsInTable(itemsData);
+  console.log(itemsData);
 };
 
 const logout = async () => {

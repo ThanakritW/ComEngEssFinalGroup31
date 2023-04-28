@@ -112,6 +112,12 @@ h1 {
     color: var(--black);
 }
 
+.box-priority {
+    display: inline;
+    font-size: x-large;
+    color: var(--black);
+}
+
 .box-title:hover {
     text-decoration: underline;
     color: var(--pm);
@@ -327,21 +333,29 @@ h1 {
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
     display: none;
-  }
-  .popup-content {
+    }
+    .popUpScreen {
     background-color: white;
     margin: 10% auto;
     padding: 20px;
     border: 1px solid #888888;
     width: 30%;
     font-weight: bolder;
-  }
-  .popup-content button {
+    }
+    .popup-content button {
     display: block;
     margin: 0 auto;
-  }
-  .show {
+    }
+    .show {
     display: block;
-  }
+    }
+    .status-to-add {
+        background-color: white;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888888;
+        width: 30%;
+        font-weight: bolder;
+        }
 
 
