@@ -5,6 +5,11 @@
     --black: #000030;
 }
 
+html {
+    scrollbar-color: #6969dd #e0e0e0;
+    scrollbar-width: thin;
+}
+
 body {
     margin: 0;
     font-family: "Mitr", sans-serif;
@@ -321,16 +326,33 @@ h1 {
 }
 
 .popup {
+    display: none;
     position: fixed;
     z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0, 0.4);
-    display: none;
+    overflow: hidden;
+    background-color: rgb(0, 0, 0, 0);
 }
+
+.show {
+    background-color: rgb(0, 0, 0, 0.4);
+    display: block;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 
 .popUpScreen {
     background-color: white;
@@ -353,10 +375,6 @@ h1 {
 .popup-content button {
     display: block;
     margin: 0 auto;
-}
-
-.show {
-    display: block;
 }
 
 .status-to-add {
@@ -434,4 +452,17 @@ h1 {
 
 .swap-button:hover>svg {
     transform: rotate(180deg);
+}
+
+*::-webkit-scrollbar,
+*::-webkit-scrollbar-thumb {
+    width: 26px;
+    border-radius: 13px;
+    background-clip: padding-box;
+    background-color: lightgray;
+    border: 10px solid transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 0 10px var(--black);
 }
