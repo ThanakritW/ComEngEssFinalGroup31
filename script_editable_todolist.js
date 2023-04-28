@@ -3,7 +3,6 @@ const backendIPAddress = "127.0.0.1:3000";
 const frontendIPAddress = "127.0.0.1:5500";
 
 let itemsData;
-const CourseTitle = new Set();
 
 let student_id;
 const getUserId = async () => {
@@ -65,6 +64,7 @@ const showItemsInTable = (itemsData) => {
     console.log("No student_id ahhhh");
   }
   const items = itemsData;
+  const CourseTitle = new Set();
   items.sort((a, b) => (a.priority < b.priority) ? 1 : -1);
   items.map((item) => {
     let prior;
