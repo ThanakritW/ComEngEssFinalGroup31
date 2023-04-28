@@ -409,3 +409,29 @@ h1 {
         transform: rotate(360deg);
     }
 }
+
+.swap-button {
+    height: 50px;
+    border-radius: 10px;
+    background-color: var(--pm);
+    padding: 12px;
+    margin: 0 10px;
+    box-sizing: border-box;
+    color: white;
+    transition: all 0.3s;
+    transition-timing-function: ease;
+}
+
+.swap-button:hover {
+    cursor: pointer;
+    background-color: #1562ce;
+}
+
+.swap-button>svg {
+    transition: all 0.3s;
+    transition-timing-function: ease;
+}
+
+.swap-button:hover>svg {
+    transform: rotate(180deg);
+}
