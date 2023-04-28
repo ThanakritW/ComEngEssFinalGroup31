@@ -30,6 +30,16 @@ const getUserId = async () => {
     .catch((error) => console.error(error));
 };
 
+function dateToString(dateString) {
+  const date = new Date(dateString);
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const year = date.getFullYear().toString();
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
+
 const getItemsFromDB = async () => {
   const options = {
     method: "GET",
@@ -144,12 +154,7 @@ const createNewTask = (status, item, prior, prior_2) => {
     </div>
     <div class="box-date">
       📆
-      <input
-      type="datetime-local"
-      id="due-date-to-add"
-      name="due-date-to-add"
-      value="${item.due_date}"
-      />
+      <h1>${dateToString(item.due_date)}</h1>
     </div>
   </div>
     `;
@@ -192,9 +197,10 @@ function PopUpOnClick(taskStatus) {
   />
   `;
   insertButton.innerHTML = `
-  <button id="addTask" onclick="addItem('${taskStatus}')">
+  <button class="add-task-button" id="addTask" onclick="addItem('${taskStatus}')">
     Add task
   </button>
+  <button class="close-button" id="closePopup" onclick="PopDownOnClick()">Close</button>
   `;
   addNewTaskPopUp.classList.add("show");
 }
