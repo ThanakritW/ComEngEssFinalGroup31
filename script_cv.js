@@ -96,6 +96,7 @@ const getAssignments = async () => {
     .then((data) => data.data.student)
     .then((courseData) => courseInfo = courseData)
     .then(async (course) => {
+      allAssignments = []
       for (let i = 0; i < course.length; i++) {
         if (course[i].semester == 1) {
           continue;
@@ -116,7 +117,6 @@ const getAssignments = async () => {
             for (let j = 0; j < assignment.length; j++) {
 
               assignment[j].cv_cid = course[i].cv_cid;
-              // console.log(typeof assignment[j]);
               allAssignments.push(assignment[j]);
             }
           })
@@ -133,9 +133,9 @@ const getAssignments = async () => {
 };
 
 const drawAssignments = async () => {
-  allAssignments = allAssignments.sort((a, b) => b.duetime - a.duetime);
+  allAssignments = allAssignments.sort((a, b) => a.duetime - b.duetime);
   // allAssignments = allAssignments.sort((a, b) => parseInt(b.cv_cid) - parseInt(a.cv_cid));
-  // console.log({ allAssignments, values: Object.values(allAssignments) })
+  console.log(allAssignments)
   const assignedAssigment = [];
   const nearAssignment = [];
   const pastAssignment = [];
@@ -231,6 +231,7 @@ const checkAuth = async () => {
 }
 
 const initAssignment = async () => {
+  allAssignments = [];
   console.log(getAuthState())
   if (getAuthState() == 1) {
     await getAssignments();
