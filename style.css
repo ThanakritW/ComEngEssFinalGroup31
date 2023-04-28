@@ -350,6 +350,15 @@ h1 {
     font-weight: bolder;
 }
 
+.TaskEditScreen {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border: #888888 solid 1px;
+    width: 30%;
+    font-weight: bolder;
+}
+
 .popup-content button {
     display: block;
     margin: 0 auto;

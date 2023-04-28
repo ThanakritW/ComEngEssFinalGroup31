@@ -3,6 +3,7 @@ const backendIPAddress = "127.0.0.1:3000";
 const frontendIPAddress = "127.0.0.1:5500";
 
 let itemsData;
+let CourseTitle = new Set();
 
 let student_id;
 const getUserId = async () => {
@@ -38,10 +39,13 @@ const getItemsFromDB = async () => {
     .then((response) => response.json())
     .then((data) => {
       itemsData = data.filter(item => item.student_id === student_id);
-      // console.log(itemsData)
     })
     .catch((error) => console.error(error));
 };
+
+
+
+// ---------------------SHOW TASKS IN TABLE----------------------------//
 
 const showItemsInTable = (itemsData) => {
   PopUpOnClick("No Status");
@@ -55,16 +59,20 @@ const showItemsInTable = (itemsData) => {
   in_progress.innerHTML = "";
   const com_pleted = document.getElementById("com-pleted");
   com_pleted.innerHTML = "";
-  const subjectLists = document.getElementById("title-to-add")
-  subjectLists.innerHTML = "<option value='0'>Subject</option>";
-  const priorityLists = document.getElementById("priority-to-add")
+  const subjectLists = document.getElementById("title-to-add");
+  subjectLists.innerHTML = "<option value=''>Subject</option>";
+  const subjectLists_edit = document.getElementById("title-to-edit");
+  subjectLists_edit.innerHTML = "<option value=''>Subject</option>";
+  const priorityLists = document.getElementById("priority-to-add");
   priorityLists.innerHTML = "<option value='0'>Low</option>";
+  const priorityLists_edit = document.getElementById("priority-to-edit");
+  priorityLists_edit.innerHTML = "<option value='0'>Low</option>";
 
   if (student_id === "") {
     console.log("No student_id ahhhh");
   }
   const items = itemsData;
-  const CourseTitle = new Set();
+  CourseTitle = new Set();
   items.sort((a, b) => (a.priority < b.priority) ? 1 : -1);
   items.map((item) => {
     let prior;
@@ -82,7 +90,7 @@ const showItemsInTable = (itemsData) => {
         prior = "high";
         prior_2 = "High";
         break;
-      case 3:
+      default:
         prior = "completed";
         prior_2 = "Completed";
     }
@@ -102,6 +110,7 @@ const showItemsInTable = (itemsData) => {
     if (!(CourseTitle.has(item.title))) {
       CourseTitle.add(item.title);
       subjectLists.innerHTML += `<option value='${item.title}'>${item.title}</option>`;
+      subjectLists_edit.innerHTML += `<option value='${item.title}'>${item.title}</option>`;
     }
 
   });
@@ -113,20 +122,35 @@ const showItemsInTable = (itemsData) => {
 
   priorityLists.innerHTML += `<option value='1'>Medium</option>`;
   priorityLists.innerHTML += `<option value='2'>High</option>`;
+  priorityLists_edit.innerHTML += `<option value='1'>Medium</option>`;
+  priorityLists_edit.innerHTML += `<option value='2'>High</option>`;
+
+  const statusList = document.getElementById("status-to-edit");
+  statusList.innerHTML += `<option value='0'>No Status</option>`;
+  statusList.innerHTML += `<option value='1'>Next Up</option>`;
+  statusList.innerHTML += `<option value='2'>In Progress</option>`;
+  statusList.innerHTML += `<option value='3'>Completed</option>`;
 };
 
 const createNewTask = (status, item, prior, prior_2) => {
-  // console.log(item);
   status.innerHTML += `
-  <div class="box" onclick="TaskDescPopUpOnClick('${item.realTitle}', '${item.title}', 
-  ${item.priority}, '${item.due_date}', '${item.description}', '${item.item_id}')">
+  <div class="box" onclick="TaskDescPopUpOnClick('${item.realTitle}', '${item.title}', ${item.priority}, 
+  '${item.due_date}', '${item.description}', '${item.item_id}', '${status}')">
     <h1 class="box-real-title">${item.realTitle}</h1>
     <br/>
     <h1 class="box-title">${item.title}</h1>
     <div class="box-priority-${prior}">
       <h1>${prior_2}</h1>
     </div>
-    <h1 class="box-date">📆 ${item.due_date}</h1>
+    <div class="box-date">
+      📆
+      <input
+      type="datetime-local"
+      id="due-date-to-add"
+      name="due-date-to-add"
+      value="${item.due_date}"
+      />
+    </div>
   </div>
     `;
 }
@@ -153,6 +177,11 @@ const createAddTask = (status, status_i) => {
     `;
 }
 
+
+
+// ---------------------POPUP RELATED----------------------------//
+
+// add new task
 function PopUpOnClick(taskStatus) {
   insertInputBox.innerHTML = `
   <input
@@ -174,7 +203,9 @@ function PopDownOnClick() {
   addNewTaskPopUp.classList.remove("show");
 }
 
-function TaskDescPopUpOnClick(realtitle, title, priority_in, date_in, description_in, item_id_in) {
+
+// task description
+function TaskDescPopUpOnClick(realtitle, title, priority_in, date_in, description_in, item_id_in, status) {
   // console.log(priority_in);
   let prior_t;
   let prior_t_2;
@@ -209,10 +240,19 @@ function TaskDescPopUpOnClick(realtitle, title, priority_in, date_in, descriptio
   <div class="box-priority-${prior_t}">
       <h1>${prior_t_2}</h1>
   </div>
-  <h1 class="box-date">📆 ${date}</h1>
+  <div class="box-date">
+    📆
+    <input
+    type="datetime-local"
+    id="due-date-to-edit"
+    name="due-date-to-edit"
+    value="${date}"
+    />
+  </div>
   <h1 class="box-title-2">${description}</h1>
-  <button id="editTask">Edit task</button>
-  <button id="deleteTask" onclick="deleteItem(${item_id})">Delete task</button>
+  <button id="editTask" onclick="preEdit('${realTitle}', '${subject}', ${priority_in}, 
+  '${date}', '${description}', '${item_id}', '${status}')">Edit task</button>
+  <button id="deleteTask" onclick="deleteItem('${item_id}')">Delete task</button>
   <button id="closePopup" onclick="TaskDescPopDownOnClick()">Close</button>
   `;
   taskDescPopUp.classList.add("show");
@@ -222,10 +262,26 @@ function TaskDescPopDownOnClick() {
   taskDescPopUp.classList.remove("show");
 }
 
+
+// task edit
+function TaskEditPopUpOnClick() {
+  TaskEditPopUp.classList.add("show");
+}
+
+function TaskEditPopDownOnClick() {
+  TaskEditPopUp.classList.remove("show");
+}
+
+
+
+// ---------------------GET ADD DELETE EDIT----------------------------//
+
+// add item
 const addItem = async (taskStatus) => {
-  const priority = parseInt(document.getElementById("priority-to-add").value);
+  let priority = parseInt(document.getElementById("priority-to-add").value);
   const description = document.getElementById("description-to-add").value;
   const due_date = document.getElementById("due-date-to-add").value;
+  console.log(due_date);
   const realTitle = document.getElementById("real-title-to-add").value;
   let title = document.getElementById("title-to-add").value;
   if (document.getElementById("new-title-to-add").value != '') {
@@ -233,6 +289,20 @@ const addItem = async (taskStatus) => {
     document.getElementById("new-title-to-add").value = '';
   }
   const status = taskStatus;
+
+  if (realTitle === '') {
+    alert("Please insert the task title");
+    return
+  }
+
+  if (title === '') {
+    alert("Please insert the task subject");
+    return
+  }
+
+  if (status === "Completed") {
+    priority = 3;
+  }
 
   const itemToAdd = {
     // course_id: course_id,
@@ -260,7 +330,7 @@ const addItem = async (taskStatus) => {
       // document.getElementById("status-to-add").value = 0;
       document.getElementById("priority-to-add").value = 0;
       document.getElementById("description-to-add").value = "";
-      document.getElementById("due-date-to-add").value = "2023-01-01";
+      document.getElementById("due-date-to-add").value = "2023-01-01T23:59";
       document.getElementById("title-to-add").value = "";
       document.getElementById("real-title-to-add").value = "";
     })
@@ -272,6 +342,7 @@ const addItem = async (taskStatus) => {
   showItemsInTable(itemsData);
 }
 
+// delete item
 const deleteItem = async (item_id) => {
   const options = {
     method: "DELETE",
@@ -287,76 +358,99 @@ const deleteItem = async (item_id) => {
   await getItemsFromDB();
   showItemsInTable(itemsData);
   console.log(itemsData);
+  TaskDescPopDownOnClick();
 };
 
-// susu kup p'muang :>
-// const editItem = async (taskStatus, item_id) => {
-//   let priority = parseInt(document.getElementById("priority-to-edit").value);
-//   let description = document.getElementById("description-to-edit").value;
-//   let due_date = document.getElementById("due-date-to-edit").value;
-//   let realTitle = document.getElementById("real-title-to-edit").value;
-//   let title = document.getElementById("title-to-edit").value;
-//   let status = taskStatus;
 
-//   if (document.getElementById("new-priority-to-edit").value != priority) {
-//     priority = document.getElementById("new-priority-to-edit").value;
-//     document.getElementById("new-priority-to-edit").value = 0;
-//   }
-//   if (document.getElementById("new-description-to-edit").value != '') {
-//     description = document.getElementById("new-description-to-edit").value;
-//     document.getElementById("new-description-to-edit").value = '';
-//   }
-//   if (document.getElementById("new-due-date-to-edit").value != '') {
-//     due_date = document.getElementById("new-due-date-to-edit").value;
-//     document.getElementById("new-due-date-to-edit").value = '';
-//   }
-//   if (document.getElementById("new-real-title-to-edit").value != '') {
-//     realTitle = document.getElementById("new-real-title-to-edit").value;
-//     document.getElementById("new-real-title-to-edit").value = '';
-//   }
-//   if (document.getElementById("new-title-to-edit").value != '') {
-//     title = document.getElementById("new-title-to-edit").value;
-//     document.getElementById("new-title-to-edit").value = '';
-//   }
-//   if (document.getElementById("new-status-to-edit").value != status) {
-//     status = document.getElementById("new-status-to-edit").value;
-//     document.getElementById("new-status-to-edit").value = '';
-//   }
+// edit item
+const preEdit = async (realtitle, title, priority_in, date_in, description_in, item_id_in, status) => {
+  TaskDescPopDownOnClick();
+  TaskEditPopUpOnClick();
+  document.getElementById("real-title-to-edit").value = realtitle;
+  document.getElementById("new-title-to-edit").value = title;
+  document.getElementById("due-date-to-edit").value = date_in;
+  document.getElementById("description-to-edit").value = description_in;
 
-//   const itemToUpdate = {
-//     realTitle: realTitle,
-//     status: status,
-//     priority: priority,
-//     description: description,
-//     due_date: due_date,
-//     title: title,
-//     student_id: student_id,
-//   }
 
-//   const options = {
-//     method: "PUT",
-//     credentials: "include",
-//     headers: {
-//       "Content-Type": "application/json"
-//     },
-//     body: JSON.stringify(itemToUpdate)
-//   }
+  document.getElementById("insertButton_edit").innerHTML = `
+  <button id="confirmEdit" onclick="editItem('${realtitle}', '${title}', ${priority_in}, 
+  '${date_in}', '${description_in}', '${item_id_in}', '${status}')">Confirm</button>
+  <button id="closePopup" onclick="TaskEditPopDownOnClick()">Close</button>
+  `;
+}
 
-//   await fetch(`http://${backendIPAddress}/items/` + item_id, options)
-//     .then((response) => {
-//       document.getElementById("priority-to-edit").value = 0;
-//       document.getElementById("description-to-edit").value = "";
-//       document.getElementById("due-date-to-edit").value = "";
-//       document.getElementById("title-to-edit").value = "";
-//       document.getElementById("real-title-to-edit").value = "";
-//     })
-//     .catch((error) => console.error(error));
+const editItem = async (realtitle, title, priority_in, date_in, description_in, item_id_in, status) => {
+  // let priority = parseInt(document.getElementById("priority-to-edit").value);
+  // let description = document.getElementById("description-to-edit").value;
+  // let due_date = document.getElementById("due-date-to-edit").value;
+  // let realTitle = document.getElementById("real-title-to-edit").value;
+  // let title = document.getElementById("title-to-edit").value;
+  // let status = taskStatus;
 
-//   console.log("Showing updated items from database.");
-//   await getItemsFromDB();
-//   console.log(itemsData);
-//   showItemsInTable(itemsData);
-// }
+  if (document.getElementById("status-to-edit").value != status) {
+    status = document.getElementById("status-to-edit").value;
+    document.getElementById("status-to-edit").value = 0;
+  }
+  if (document.getElementById("priority-to-edit").value != priority_in) {
+    priority_in = document.getElementById("priority-to-edit").value;
+    document.getElementById("priority-to-edit").value = 0;
+  }
+  if (document.getElementById("description-to-edit").value != description_in) {
+    description_in = document.getElementById("description-to-edit").value;
+    document.getElementById("description-to-edit").value = '';
+  }
+  if (document.getElementById("due-date-to-edit").value != date_in) {
+    date_in = document.getElementById("due-date-to-edit").value;
+    document.getElementById("due-date-to-edit").value = "2023-01-01T23:59";
+  }
+  if (document.getElementById("real-title-to-edit").value != realtitle) {
+    realtitle = document.getElementById("real-title-to-edit").value;
+    document.getElementById("real-title-to-edit").value = '';
+  }
+  if (document.getElementById("new-title-to-edit").value != title) {
+    title = document.getElementById("new-title-to-edit").value;
+    document.getElementById("new-title-to-edit").value = '';
+  }
+
+  const itemToUpdate = {
+    realTitle: realtitle,
+    status: status,
+    priority: priority_in,
+    description: description_in,
+    due_date: date_in,
+    title: title,
+    item_id: item_id_in,
+    student_id: student_id,
+  }
+
+  const options = {
+    method: "PUT",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(itemToUpdate)
+  }
+
+  await fetch(`http://${backendIPAddress}/items/` + item_id_in, options)
+    .then((response) => {
+      document.getElementById("priority-to-edit").value = 0;
+      document.getElementById("description-to-edit").value = "";
+      document.getElementById("due-date-to-edit").value = "2023-01-01T23:59";
+      document.getElementById("title-to-edit").value = "";
+      document.getElementById("real-title-to-edit").value = "";
+    })
+    .catch((error) => console.error(error));
+
+  console.log("Showing updated items from database.");
+  await getItemsFromDB();
+  console.log(itemsData);
+  showItemsInTable(itemsData);
+}
+
+
+
+// ---------------------Initialize----------------------------//
 
 const initTodo = async () => {
   console.log("Showing User Id");
