@@ -471,8 +471,8 @@ h1 {
 }
 
 .box-form-label {
-    font-size: x-large;
-    margin: 0;
+    font-size: larger;
+    margin: 2px;
 }
 
 .box-form-input {
