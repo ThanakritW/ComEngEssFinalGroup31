@@ -96,9 +96,7 @@ const showItemsInTable = (itemsData) => {
       createNewTask(in_progress, item, prior, prior_2)
     }
     else if (item.status == "Completed") {
-      prior = "completed";
-      prior_2 = "Completed";
-      createNewTask(com_pleted, item, prior, prior_2)
+      createNewTask(com_pleted, item, "completed", "Completed")
     }
 
     if (!(CourseTitle.has(item.title))) {
