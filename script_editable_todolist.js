@@ -113,12 +113,13 @@ const showItemsInTable = (itemsData) => {
 
   priorityLists.innerHTML += `<option value='1'>Medium</option>`;
   priorityLists.innerHTML += `<option value='2'>High</option>`;
-  priorityLists.innerHTML += `<option value='3'>Completed</option>`;
 };
 
 const createNewTask = (status, item, prior, prior_2) => {
+  // console.log(item);
   status.innerHTML += `
-  <div class="box" onclick="PopUpOnClick()">
+  <div class="box" onclick="TaskDescPopUpOnClick('${item.realTitle}', '${item.title}', 
+  ${item.priority}, '${item.due_date}', '${item.description}', '${item.item_id}')">
     <h1 class="box-real-title">${item.realTitle}</h1>
     <br/>
     <h1 class="box-title">${item.title}</h1>
@@ -126,9 +127,6 @@ const createNewTask = (status, item, prior, prior_2) => {
       <h1>${prior_2}</h1>
     </div>
     <h1 class="box-date">📆 ${item.due_date}</h1>
-    <button id="deleteTask" onclick="deleteItem('${item.item_id}')">
-    Delete task
-  </button>
   </div>
     `;
 }
@@ -176,6 +174,54 @@ function PopDownOnClick() {
   addNewTaskPopUp.classList.remove("show");
 }
 
+function TaskDescPopUpOnClick(realtitle, title, priority_in, date_in, description_in, item_id_in) {
+  // console.log(priority_in);
+  let prior_t;
+  let prior_t_2;
+  switch (priority_in) {
+    case 0:
+      prior_t = "low";
+      prior_t_2 = "Low";
+      break;
+    case 1:
+      prior_t = "medium";
+      prior_t_2 = "Medium";
+      break;
+    case 2:
+      prior_t = "high";
+      prior_t_2 = "High";
+      break;
+    default:
+      prior_t = "completed";
+      prior_t_2 = "Completed";
+  }
+
+  const realTitle = realtitle;
+  const subject = title;
+  const date = date_in;
+  const description = description_in;
+  const item_id = item_id_in;
+
+  TaskDescScreen.innerHTML = `
+  <h1 class="box-real-title" id="task-desc-title">${realTitle}</h1>
+  <br />
+  <h1 class="box-title" id="task-desc-subject">${subject}</h1>
+  <div class="box-priority-${prior_t}">
+      <h1>${prior_t_2}</h1>
+  </div>
+  <h1 class="box-date">📆 ${date}</h1>
+  <h1 class="box-title-2">${description}</h1>
+  <button id="editTask">Edit task</button>
+  <button id="deleteTask" onclick="deleteItem(${item_id})">Delete task</button>
+  <button id="closePopup" onclick="TaskDescPopDownOnClick()">Close</button>
+  `;
+  taskDescPopUp.classList.add("show");
+}
+
+function TaskDescPopDownOnClick() {
+  taskDescPopUp.classList.remove("show");
+}
+
 const addItem = async (taskStatus) => {
   const priority = parseInt(document.getElementById("priority-to-add").value);
   const description = document.getElementById("description-to-add").value;
@@ -214,7 +260,7 @@ const addItem = async (taskStatus) => {
       // document.getElementById("status-to-add").value = 0;
       document.getElementById("priority-to-add").value = 0;
       document.getElementById("description-to-add").value = "";
-      document.getElementById("due-date-to-add").value = "";
+      document.getElementById("due-date-to-add").value = "2023-01-01";
       document.getElementById("title-to-add").value = "";
       document.getElementById("real-title-to-add").value = "";
     })
@@ -242,6 +288,11 @@ const deleteItem = async (item_id) => {
   showItemsInTable(itemsData);
   console.log(itemsData);
 };
+
+// ฝากด้วย pretty please
+const editItem = async (item_id) => {
+
+}
 
 const initTodo = async () => {
   console.log("Showing User Id");
