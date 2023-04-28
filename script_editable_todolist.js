@@ -393,6 +393,8 @@ const editItem = async (realtitle, title, priority_in, date_in, description_in, 
   // let title = document.getElementById("title-to-edit").value;
   // let status = taskStatus;
 
+  TaskEditPopDownOnClick();
+
   console.log(realtitle, title, priority_in, date_in, description_in, item_id_in, status)
 
   if (document.getElementById("status-to-edit").value != status) {
@@ -400,7 +402,7 @@ const editItem = async (realtitle, title, priority_in, date_in, description_in, 
     document.getElementById("status-to-edit").value = 0;
   }
   if (document.getElementById("priority-to-edit").value != priority_in) {
-    priority_in = document.getElementById("priority-to-edit").value;
+    priority_in = parseInt(document.getElementById("priority-to-edit").value);
     document.getElementById("priority-to-edit").value = 0;
   }
   if (document.getElementById("description-to-edit").value != description_in) {
