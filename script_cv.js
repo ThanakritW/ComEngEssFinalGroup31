@@ -221,6 +221,7 @@ const checkAuth = async () => {
       }
       else {
         console.log("USER IS NOT LOGGED IN")
+        setPage('/login.html');
       }
     })
     .catch((error) => {
