@@ -191,7 +191,7 @@ const createAddTask = (status, status_i) => {
       addedStatus = "Completed";
   }
   status.innerHTML += `
-  <div class="box" onclick="PopUpOnClick('${addedStatus}')">
+  <div class="box box-add-task" onclick="PopUpOnClick('${addedStatus}')">
     <h1 class="box-add-new-list">Add new list</h1>
   <div class="box-add-new-list-2">⊕</div>
   </div>
