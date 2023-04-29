@@ -25,7 +25,7 @@ function epochToDateTime(epoch) {
   const day = ('0' + date.getDate()).slice(-2);
   const hours = ('0' + date.getHours()).slice(-2);
   const minutes = ('0' + date.getMinutes()).slice(-2);
-  return `${year}/${month}/${day} ${hours}:${minutes}`;
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
 }
 
 async function setPage(link) {
@@ -50,8 +50,8 @@ function getCourseTitle(cv_cid) {
 function getAssignmentInstruction(itemid) {
   for (let i = 0; i < allAssignments.length; i++) {
     if (allAssignments[i].itemid == itemid) {
-      if (allAssignments[i].instruction == "undefined" || allAssignments[i].instruction == "" || 
-      allAssignments[i].instruction == "<p>undefined</p>") return "This assignment has no instruction."
+      if (allAssignments[i].instruction == "undefined" || allAssignments[i].instruction == "" ||
+        allAssignments[i].instruction == "<p>undefined</p>") return "This assignment has no instruction."
       return allAssignments[i].instruction;
     }
   }
@@ -215,7 +215,9 @@ function TaskDescPopUpOnClickMcv(title, cv_cid, itemid, duetime) {
     <div class="box-desc"> 
       <h1 class="box-form-label">${getAssignmentInstruction(itemid)}</h1>
     </div>
-    <button class="text-med etc-button" id="closePopup" onclick="TaskDescPopDownOnClickMcv()">Close</button>
+    <div style="display:flex; justify-content:flex-end;" >
+      <button class="text-med etc-button" id="closePopup" onclick="TaskDescPopDownOnClickMcv()">Close</button>
+    </div>
   `;
   taskDescPopUpMcv.classList.add("show");
 }

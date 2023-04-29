@@ -1,21 +1,10 @@
 <div style="display: flex; flex-direction: row">
   <h1 style="margin: 0">📝 To Do List</h1>
-  <span class="swap-button" onclick="setPage('/assignment.html')"
-    ><svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="23"
-      height="23"
-      fill="currentColor"
-      class="bi bi-arrow-left-right"
-      viewBox="0 0 16 16"
-    >
-      <path
-        fill-rule="evenodd"
-        stroke="currentColor"
-        stroke-width="0.5"
-        d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z"
-      /></svg
-  ></span>
+  <span class="swap-button" onclick="setPage('/assignment.html')"><svg xmlns="http://www.w3.org/2000/svg" width="23"
+      height="23" fill="currentColor" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" stroke="currentColor" stroke-width="0.5"
+        d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z" />
+    </svg></span>
 </div>
 <div class="table-wrapper">
   <div class="table-column">
@@ -81,63 +70,25 @@
   <div id="addNewTaskPopUp" class="popup">
     <div class="popUpScreen" , id="popUpScreen">
       <h1 class="box-form-label">Insert title</h1>
-      <input
-        class="box-form-input"
-        type="text"
-        id="real-title-to-add"
-        name="real-title-to-add"
-        placeholder="task title"
-        value=""
-        required
-      />
+      <input class="box-form-input" type="text" id="real-title-to-add" name="real-title-to-add" placeholder="task title"
+        value="" required />
       <h1 class="box-form-label">Select subject</h1>
-      <select
-        class="box-form-input"
-        name="title-to-add"
-        id="title-to-add"
-        required
-      ></select>
+      <select class="box-form-input" name="title-to-add" id="title-to-add" required></select>
       <div id="insertInputBox">
-        <input
-          class="box-form-input"
-          type="text"
-          id="new-title-to-add"
-          name="new-title-to-add"
-          placeholder="or add new subject"
-        />
+        <input class="box-form-input" type="text" id="new-title-to-add" name="new-title-to-add"
+          placeholder="or add new subject" />
       </div>
       <h1 class="box-form-label">Set priority</h1>
-      <select
-        class="box-form-input"
-        name="priority-to-add"
-        id="priority-to-add"
-      ></select>
+      <select class="box-form-input" name="priority-to-add" id="priority-to-add"></select>
       <h1 class="box-form-label">Set due date</h1>
       <div class="box-date">
-        <input
-          class="box-form-input"
-          type="datetime-local"
-          id="due-date-to-add"
-          name="due-date-to-add"
-          value=""
-        />
+        <input class="box-form-input" type="datetime-local" id="due-date-to-add" name="due-date-to-add" value="" />
       </div>
       <h1 class="box-form-label">Description</h1>
-      <textarea
-        class="box-form-input"
-        id="description-to-add"
-        name="description-to-add"
-        rows="5"
-        cols="50"
-        placeholder="What is this task about?"
-        style="resize: none; overflow-y: auto"
-        value=""
-      ></textarea>
+      <textarea class="box-form-input" id="description-to-add" name="description-to-add" rows="5" cols="50"
+        placeholder="What is this task about?" style="resize: none; overflow-y: auto" value=""></textarea>
       <br />
-      <div
-        style="display: flex; justify-content: space-between"
-        id="insertButton"
-      ></div>
+      <div style="display: flex; justify-content: space-between" id="insertButton"></div>
     </div>
   </div>
 
@@ -150,69 +101,28 @@
   <div id="TaskEditPopUp" class="popup">
     <div class="TaskEditScreen" , id="TaskEditScreen">
       <h1 class="box-form-label">Edit title</h1>
-      <input
-        class="box-form-input"
-        type="text"
-        id="real-title-to-edit"
-        name="real-title-to-edit"
-        placeholder="new task title"
-        value=""
-        required
-      />
+      <input class="box-form-input" type="text" id="real-title-to-edit" name="real-title-to-edit"
+        placeholder="new task title" value="" required />
       <h1 class="box-form-label">Change subject</h1>
-      <select
-        class="box-form-input"
-        name="title-to-edit"
-        id="title-to-edit"
-        required
-      ></select>
+      <select class="box-form-input" name="title-to-edit" id="title-to-edit" required></select>
       <div id="insertInputBox">
-        <input
-          class="box-form-input"
-          type="text"
-          id="new-title-to-edit"
-          name="new-title-to-edit"
-          placeholder="or add new subject"
-        />
+        <input class="box-form-input" type="text" id="new-title-to-edit" name="new-title-to-edit"
+          placeholder="or add new subject" />
       </div>
       <h1 class="box-form-label">Change priority</h1>
-      <select
-        class="box-form-input"
-        name="priority-to-edit"
-        id="priority-to-edit"
-      ></select>
+      <select class="box-form-input" name="priority-to-edit" id="priority-to-edit"></select>
       <h1 class="box-form-label">Change status</h1>
-      <select
-        class="box-form-input"
-        name="status-to-edit"
-        id="status-to-edit"
-      ></select>
+      <select class="box-form-input" name="status-to-edit" id="status-to-edit"></select>
       <h1 class="box-form-label">Change due date</h1>
       <div class="box-date">
-        <input
-          class="box-form-input"
-          type="datetime-local"
-          id="due-date-to-edit"
-          name="due-date-to-edit"
-          value="2023-01-01T23:59"
-        />
+        <input class="box-form-input" type="datetime-local" id="due-date-to-edit" name="due-date-to-edit"
+          value="2023-01-01T23:59" />
       </div>
       <h1 class="box-form-label">Edit description</h1>
-      <textarea
-        class="box-form-input"
-        id="description-to-edit"
-        name="description-to-edit"
-        rows="5"
-        cols="50"
-        placeholder="What is this task about?"
-        style="resize: none; overflow-y: auto"
-        value=""
-      ></textarea>
+      <textarea class="box-form-input" id="description-to-edit" name="description-to-edit" rows="5" cols="50"
+        placeholder="What is this task about?" style="resize: none; overflow-y: auto" value=""></textarea>
       <br />
-      <div
-        style="display: flex; justify-content: space-between"
-        id="insertButton_edit"
-      ></div>
+      <div style="display: flex; justify-content: space-between" id="insertButton_edit"></div>
     </div>
   </div>
 </div>

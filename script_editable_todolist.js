@@ -166,8 +166,8 @@ const createNewTask = (status, item, prior, prior_2) => {
   '${item.due_date}', '${newDescription}', '${item.item_id}', '${item.status}')">
     <h1 class="box-real-title">${item.realTitle}</h1>
     <br/>
-    <h1 class="box-title">${item.title}</h1>
-    <div class="box-priority-${prior}">
+    <h1 class="box-course" style="font-size:large;">${item.title}</h1>
+    <div class="box-priority-${prior}" style="margin-top:10px">
       <h1>${prior_2}</h1>
     </div>
     <h1 class="box-date">📆 ${dateToString(item.due_date)}</h1>
@@ -257,7 +257,9 @@ function TaskDescPopUpOnClick(realtitle, title, priority_in, date_in, descriptio
   const item_id = item_id_in;
 
   TaskDescScreen.innerHTML = `
-  <h1 class="box-desc-title" id="task-desc-title">${realTitle}</h1>
+  <div style="display: flex;">
+  <h1 style="width:80%;" class="box-desc-title" id="task-desc-title">${realTitle}</h1><button style="width:20%;" class="text-med close-button" id="deleteTask" onclick="deleteItem('${item_id}')">Delete</button>
+  </div>
   <h1 class="box-form-label" id="task-desc-subject">${subject}</h1>
   <div class="box-priority-${prior_t}">
       <h1>${prior_t_2}</h1>
@@ -268,10 +270,11 @@ function TaskDescPopUpOnClick(realtitle, title, priority_in, date_in, descriptio
   <div class="box-desc"> 
     <h1 class="box-form-label">${description}</h1>
   </div>
+  <div style="display: flex; justify-content:space-between;">
   <button class="text-med edit-button" id="editTask" onclick="preEdit('${realTitle}', '${subject}', ${priority_in}, 
   '${date}', '${description}', '${item_id}', '${status}')">Edit</button>
-  <button class="text-med close-button" id="deleteTask" onclick="deleteItem('${item_id}')">Delete</button>
   <button class="text-med etc-button" id="closePopup" onclick="TaskDescPopDownOnClick()">Close</button>
+  </div>
   `;
   taskDescPopUp.classList.add("show");
 }
