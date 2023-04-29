@@ -84,8 +84,12 @@ const showItemsInTable = (itemsData) => {
   subjectLists_edit.innerHTML = "<option value=''>Subject</option>";
   const priorityLists = document.getElementById("priority-to-add");
   priorityLists.innerHTML = "<option value='0'>Low</option>";
+  priorityLists.innerHTML += `<option value='1'>Medium</option>`;
+  priorityLists.innerHTML += `<option value='2'>High</option>`;
   const priorityLists_edit = document.getElementById("priority-to-edit");
-  priorityLists_edit.innerHTML = "<option value='0'>Low</option>";
+  priorityLists_edit.innerHTML = "<option value='0' id='prior-1'>Low</option>";
+  priorityLists_edit.innerHTML += `<option value='1' id='prior-2'>Medium</option>`;
+  priorityLists_edit.innerHTML += `<option value='2' id='prior-3'>High</option>`;
 
   if (student_id === "") {
     console.log("No student_id ahhhh");
@@ -139,10 +143,6 @@ const showItemsInTable = (itemsData) => {
   createAddTask(in_progress, 2);
   createAddTask(com_pleted, 3);
 
-  priorityLists.innerHTML += `<option value='1'>Medium</option>`;
-  priorityLists.innerHTML += `<option value='2'>High</option>`;
-  priorityLists_edit.innerHTML += `<option value='1'>Medium</option>`;
-  priorityLists_edit.innerHTML += `<option value='2'>High</option>`;
 
   const statusList = document.getElementById("status-to-edit");
   statusList.innerHTML = `
@@ -392,24 +392,30 @@ const preEdit = async (realtitle, title, priority_in, date_in, description_in, i
   const nextUp = document.getElementById("status-2")
   const inProg = document.getElementById("status-3")
   const completed = document.getElementById("status-4")
+  const low = document.getElementById("prior-1")
+  const med = document.getElementById("prior-2")
+  const high = document.getElementById("prior-3")
   noStatus.removeAttribute("selected");
   nextUp.removeAttribute("selected");
   inProg.removeAttribute("selected");
   completed.removeAttribute("selected");
-  if (status == "No Status") {
+  low.removeAttribute("selected");
+  med.removeAttribute("selected");
+  high.removeAttribute("selected");
+  if (status == "No Status")
     noStatus.setAttribute("selected", "selected")
-  }
-  else if (status == "Next Up") {
+  else if (status == "Next Up")
     nextUp.setAttribute("selected", "selected")
-  }
-  else if (status == "In Progress") {
+  else if (status == "In Progress")
     inProg.setAttribute("selected", "selected")
-  }
-  else if (status == "Completed") {
+  else if (status == "Completed")
     completed.setAttribute("selected", "selected")
-  }
-  // console.log(status);
-
+  if (priority_in == "0")
+    low.setAttribute("selected", "selected")
+  else if (priority_in == "1")
+    med.setAttribute("selected", "selected")
+  else if (priority_in == "2")
+    high.setAttribute("selected", "selected")
 
   document.getElementById("insertButton_edit").innerHTML = `
   <button class="add-task-button" id="confirmEdit" onclick="editItem('${realtitle}', '${title}', ${priority_in}, 
