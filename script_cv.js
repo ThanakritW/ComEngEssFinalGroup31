@@ -162,7 +162,7 @@ const drawAssignments = async () => {
   assignedAssigment.map(async (data) => {
     // console.log(data)
     assigned.innerHTML += `
-    <div class="box" id="${data.itemid}">
+    <div class="box" id="${data.itemid}" onclick="TaskDescPopUpOnClickMcv('${data.title}', ${data.cv_cid}, ${data.itemid}, ${data.duetime})">
       <a href="https://www.mycourseville.com/?q=courseville/worksheet/${data.cv_cid}/${data.itemid}"><h1 class="box-title hover-1">${getSensitive(data.duetime)}${data.title}</h1></a>
       <br/>
       <h1 class="box-course">${getCourseTitle(data.cv_cid)}</h1>
@@ -173,7 +173,7 @@ const drawAssignments = async () => {
   pastAssignment.map(async (data) => {
     // console.log(data)
     past.innerHTML += `
-    <div class="box" id="${data.itemid}">
+    <div class="box" id="${data.itemid}" onclick="TaskDescPopUpOnClickMcv('${data.title}', ${data.cv_cid}, ${data.itemid}, ${data.duetime})">
       <a href="https://www.mycourseville.com/?q=courseville/worksheet/${data.cv_cid}/${data.itemid}"><h1 class="box-title hover-1">${getSensitive(data.duetime)}${data.title}</h1></a>
       <br/>
       <h1 class="box-course">${getCourseTitle(data.cv_cid)}</h1>
@@ -184,7 +184,7 @@ const drawAssignments = async () => {
   nearAssignment.map(async (data) => {
     // console.log(data)
     near.innerHTML += `
-    <div class="box" id="${data.itemid}">
+    <div class="box" id="${data.itemid}" onclick="TaskDescPopUpOnClickMcv('${data.title}', ${data.cv_cid}, ${data.itemid}, ${data.duetime})">
       <a href="https://www.mycourseville.com/?q=courseville/worksheet/${data.cv_cid}/${data.itemid}"><h1 class="box-title hover-1">${getSensitive(data.duetime)}${data.title}</h1></a>
       <br/>
       <h1 class="box-course">${getCourseTitle(data.cv_cid)}</h1>
@@ -193,6 +193,22 @@ const drawAssignments = async () => {
     `
   })
 
+}
+
+function TaskDescPopUpOnClickMcv(title, cv_cid, itemid, duetime) {
+  // <a href="https://www.mycourseville.com/?q=courseville/worksheet/${cv_cid}/${itemid}">
+  TaskDescScreenMcv.innerHTML = `
+    <h1 class="box-title hover-1">${getSensitive(duetime)}${title}</h1></a>
+    <br/>
+    <h1 class="box-course">${getCourseTitle(cv_cid)}</h1>
+    <h1 class="box-date">📆${epochToDateTime(duetime)}</h1>
+    <button class="text-med etc-button" id="closePopup" onclick="TaskDescPopDownOnClickMcv()">Close</button>
+  `;
+  taskDescPopUpMcv.classList.add("show");
+}
+
+function TaskDescPopDownOnClickMcv() {
+  taskDescPopUpMcv.classList.remove("show");
 }
 
 const logout = async () => {
@@ -241,6 +257,7 @@ const initAssignment = async () => {
     setPage("/login.html");
     console.log("NOT LOGGED IN");
   }
+  TaskDescPopDownOnClickMcv();
 }
 
 const getAuthState = () => {

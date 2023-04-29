@@ -375,6 +375,7 @@ h1 {
 
 .popUpScreen,
 .TaskDescScreen,
+.TaskDescScreenMcv,
 .TaskEditScreen {
     border-radius: 15px;
     background-color: white;
