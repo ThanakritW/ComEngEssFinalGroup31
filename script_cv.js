@@ -47,6 +47,16 @@ function getCourseTitle(cv_cid) {
   }
 }
 
+function getAssignmentInstruction(itemid) {
+  for (let i = 0; i < allAssignments.length; i++) {
+    if (allAssignments[i].itemid == itemid) {
+      if (allAssignments[i].instruction == "undefined" || allAssignments[i].instruction == "" || 
+      allAssignments[i].instruction == "<p>undefined</p>") return "This assignment has no instruction."
+      return allAssignments[i].instruction;
+    }
+  }
+}
+
 // Example: Send Get user profile ("GET") request to backend server and show the response on the webpage
 const getUserProfile = async () => {
   const options = {
@@ -202,6 +212,9 @@ function TaskDescPopUpOnClickMcv(title, cv_cid, itemid, duetime) {
     <br/>
     <h1 class="box-course">${getCourseTitle(cv_cid)}</h1>
     <h1 class="box-date">📆${epochToDateTime(duetime)}</h1>
+    <div class="box-desc"> 
+      <h1 class="box-form-label">${getAssignmentInstruction(itemid)}</h1>
+    </div>
     <button class="text-med etc-button" id="closePopup" onclick="TaskDescPopDownOnClickMcv()">Close</button>
   `;
   taskDescPopUpMcv.classList.add("show");
