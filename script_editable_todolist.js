@@ -145,10 +145,16 @@ const showItemsInTable = (itemsData) => {
   priorityLists_edit.innerHTML += `<option value='2'>High</option>`;
 
   const statusList = document.getElementById("status-to-edit");
-  statusList.innerHTML += `<option value='0'>No Status</option>`;
-  statusList.innerHTML += `<option value='1'>Next Up</option>`;
-  statusList.innerHTML += `<option value='2'>In Progress</option>`;
-  statusList.innerHTML += `<option value='3'>Completed</option>`;
+  statusList.innerHTML = `
+  <option value='No Status'>No Status</option>
+  <option value='Next Up'>Next Up</option>
+  <option value='In Progress'>In Progress</option>
+  <option value='Completed'>Completed</option>
+  `;
+  // statusList.innerHTML += `<option value='0'>No Status</option>`;
+  // statusList.innerHTML += `<option value='1'>Next Up</option>`;
+  // statusList.innerHTML += `<option value='2'>In Progress</option>`;
+  // statusList.innerHTML += `<option value='3'>Completed</option>`;
 };
 
 const createNewTask = (status, item, prior, prior_2) => {
@@ -439,7 +445,6 @@ const editItem = async (realtitle, title, priority_in, date_in, description_in, 
     description: description_in,
     due_date: date_in,
     title: title,
-    item_id: item_id_in,
     student_id: student_id,
   }
 
