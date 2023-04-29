@@ -146,10 +146,10 @@ const showItemsInTable = (itemsData) => {
 
   const statusList = document.getElementById("status-to-edit");
   statusList.innerHTML = `
-  <option value='No Status'>No Status</option>
-  <option value='Next Up'>Next Up</option>
-  <option value='In Progress'>In Progress</option>
-  <option value='Completed'>Completed</option>
+  <option value='No Status' id="status-1">No Status</option>
+  <option value='Next Up' id="status-2">Next Up</option>
+  <option value='In Progress' id="status-3">In Progress</option>
+  <option value='Completed' id="status-4">Completed</option>
   `;
   // statusList.innerHTML += `<option value='0'>No Status</option>`;
   // statusList.innerHTML += `<option value='1'>Next Up</option>`;
@@ -163,7 +163,7 @@ const createNewTask = (status, item, prior, prior_2) => {
   newDescription = newDescription.replace(/\n/g, "<br/>")
   status.innerHTML += `
   <div class="box" onclick="TaskDescPopUpOnClick('${item.realTitle}', '${item.title}', ${item.priority}, 
-  '${item.due_date}', '${newDescription}', '${item.item_id}', '${status}')">
+  '${item.due_date}', '${newDescription}', '${item.item_id}', '${item.status}')">
     <h1 class="box-real-title">${item.realTitle}</h1>
     <br/>
     <h1 class="box-title">${item.title}</h1>
@@ -388,6 +388,27 @@ const preEdit = async (realtitle, title, priority_in, date_in, description_in, i
   document.getElementById("new-title-to-edit").value = title;
   document.getElementById("due-date-to-edit").value = date_in;
   document.getElementById("description-to-edit").value = description_in.replace(/<br\s*\/?>/g, "\n");
+  const noStatus = document.getElementById("status-1")
+  const nextUp = document.getElementById("status-2")
+  const inProg = document.getElementById("status-3")
+  const completed = document.getElementById("status-4")
+  noStatus.removeAttribute("selected");
+  nextUp.removeAttribute("selected");
+  inProg.removeAttribute("selected");
+  completed.removeAttribute("selected");
+  if (status == "No Status") {
+    noStatus.setAttribute("selected", "selected")
+  }
+  else if (status == "Next Up") {
+    nextUp.setAttribute("selected", "selected")
+  }
+  else if (status == "In Progress") {
+    inProg.setAttribute("selected", "selected")
+  }
+  else if (status == "Completed") {
+    completed.setAttribute("selected", "selected")
+  }
+  // console.log(status);
 
 
   document.getElementById("insertButton_edit").innerHTML = `
