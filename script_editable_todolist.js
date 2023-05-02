@@ -1,6 +1,6 @@
 // TODO #4.0: Change this IP address to EC2 instance public IP address when you are going to deploy this web application
-const backendIPAddress = "127.0.0.1:3000";
-const frontendIPAddress = "127.0.0.1:5500";
+const backendIPAddress = "44.216.17.250:3000";
+const frontendIPAddress = "44.216.17.250";
 
 let itemsData;
 let CourseTitle = new Set();
