@@ -206,8 +206,8 @@ const drawAssignments = async () => {
 }
 
 function TaskDescPopUpOnClickMcv(title, cv_cid, itemid, duetime) {
-  // <a href="https://www.mycourseville.com/?q=courseville/worksheet/${cv_cid}/${itemid}">
   TaskDescScreenMcv.innerHTML = `
+   <a href="https://www.mycourseville.com/?q=courseville/worksheet/${cv_cid}/${itemid}">
     <h1 class="box-title hover-1">${getSensitive(duetime)}${title}</h1></a>
     <br/>
     <h1 class="box-course">${getCourseTitle(cv_cid)}</h1>
@@ -215,7 +215,8 @@ function TaskDescPopUpOnClickMcv(title, cv_cid, itemid, duetime) {
     <div class="box-desc"> 
       <h1 class="box-form-label">${getAssignmentInstruction(itemid)}</h1>
     </div>
-    <div style="display:flex; justify-content:flex-end;" >
+    <div style="display:flex; justify-content:space-between;" >
+      <a href="https://www.mycourseville.com/?q=courseville/worksheet/${cv_cid}/${itemid}"><button class="text-med add-task-button">Go </button></a>
       <button class="text-med etc-button" id="closePopup" onclick="TaskDescPopDownOnClickMcv()">Close</button>
     </div>
   `;
