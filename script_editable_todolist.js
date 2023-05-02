@@ -270,9 +270,11 @@ function TaskDescPopUpOnClick(realtitle, title, priority_in, date_in, descriptio
   <div class="box-desc"> 
     <h1 class="box-form-label">${description}</h1>
   </div>
-  <div style="display: flex; justify-content:space-between;">
+  <div class="button-box"style="display: flex; justify-content:space-between;">
   <button class="text-med edit-button" id="editTask" onclick="preEdit('${realTitle}', '${subject}', ${priority_in}, 
   '${date}', '${description}', '${item_id}', '${status}')">Edit</button>
+  <button class="add-task-button ${status}-check" id="confirmEdit" onclick="setComplete('${realtitle}', '${subject}', ${priority_in}, 
+  '${date_in}', '${description_in}', '${item_id_in}')">Mark as Done</button>
   <button class="text-med etc-button" id="closePopup" onclick="TaskDescPopDownOnClick()">Close</button>
   </div>
   `;
@@ -511,3 +513,40 @@ const initTodo = async () => {
   console.log(itemsData);
   showItemsInTable(itemsData);
 };
+
+
+const setComplete = async (realtitle, title, priority_in, date_in, description_in, item_id_in) => {
+  const itemToUpdate = {
+    realTitle: realtitle,
+    status: "Completed",
+    priority: priority_in,
+    description: description_in,
+    due_date: date_in,
+    title: title,
+    student_id: student_id,
+  }
+
+  const options = {
+    method: "PUT",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(itemToUpdate)
+  }
+
+  await fetch(`http://${backendIPAddress}/items/` + item_id_in, options)
+    .then((response) => {
+      document.getElementById("priority-to-edit").value = 0;
+      document.getElementById("description-to-edit").value = "";
+      document.getElementById("due-date-to-edit").value = "2023-01-01T23:59";
+      document.getElementById("title-to-edit").value = "";
+      document.getElementById("real-title-to-edit").value = "";
+    })
+    .catch((error) => console.error(error));
+  TaskDescPopDownOnClick();
+  console.log("Showing updated items from database.");
+  await getItemsFromDB();
+  console.log(itemsData);
+  showItemsInTable(itemsData);
+}

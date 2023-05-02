@@ -381,6 +381,7 @@ h1 {
     background-color: white;
     margin: 5% auto auto auto;
     padding: 20px;
+    padding-bottom: 10px;
     border: #888888 solid 1px;
     width: 80%;
     max-width: 500px;
@@ -642,4 +643,26 @@ h1 {
 
 .etc-button:active {
     transform: scale(1.05);
+}
+
+.Completed-check {
+    display: none;
+}
+
+.button-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 500px) {
+    .button-box {
+        flex-direction: column;
+    }
+
+    .button-box>* {
+        align-self: center;
+        margin-top: 10px;
+        width: 200px;
+    }
 }
